@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="categoryButtonColor">#525DC0</color>
-    <color name="favoritesButtonColor">#E13E3E</color>
-
+    <color name="category_button_color">#525DC0</color>
+    <color name="favorites_button_color">#E13E3E</color>
+    <color name="background_color">#F4FAFF</color>
 </resources>

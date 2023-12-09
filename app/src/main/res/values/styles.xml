@@ -13,6 +13,7 @@
         <item name="android:paddingVertical">10dp</item>
         <item name="android:paddingHorizontal">10dp</item>
         <item name="cornerRadius">12dp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

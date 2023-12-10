@@ -9,10 +9,12 @@ import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private var binding = ActivityMainBinding.inflate(layoutInflater)
+    private var _binding: ActivityMainBinding? = null
+    private val binding
+        get() = _binding ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

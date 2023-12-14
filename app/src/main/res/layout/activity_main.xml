@@ -33,24 +33,24 @@
 
         <Button
             style="@style/StyleNavButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/indent_button"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:backgroundTint="@color/category_button_color"
             android:text="@string/text_category_button" />
 
         <Button
             style="@style/StyleNavButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/indent_button"
             android:layout_weight="1"
             android:backgroundTint="@color/favorites_button_color"
             android:text="@string/text_favorite_button"
             app:icon="@drawable/ic_heart"
-            app:iconGravity="end" />
-
+            app:iconGravity="textEnd"
+            tools:visibility="visible" />
 
     </LinearLayout>
 

@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         fragmentManager.commit {
             setReorderingAllowed(true)
-            add<CategoriesListFragment>(R.id.mainContainer, "MainContainerTag")
+            add<CategoriesListFragment>(R.id.mainContainer)
+            addToBackStack(null)
         }
     }
 }

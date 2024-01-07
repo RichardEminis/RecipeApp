@@ -1,9 +1,11 @@
 package com.example.recipeapp
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +26,22 @@ class MainActivity : AppCompatActivity() {
             setReorderingAllowed(true)
             add<CategoriesListFragment>(R.id.mainContainer)
             addToBackStack(null)
+        }
+
+        binding.favoritesButton.setOnClickListener {
+            supportFragmentManager.commit {
+                replace<FavoritesFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+        }
+
+        binding.categoryButton.setOnClickListener {
+            supportFragmentManager.commit {
+                replace<CategoriesListFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
         }
     }
 }

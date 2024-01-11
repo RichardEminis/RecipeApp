@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package data
 
 import model.Category
 

@@ -1,5 +1,7 @@
 package com.example.recipeapp
 
+import model.Category
+
 fun main() {
     STUB.categories = (listOf(
         Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),

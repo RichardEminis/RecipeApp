@@ -1,7 +1,7 @@
 package model
 
 data class Ingredient(
-    val quantity: Int,
+    val quantity: Float,
     val unitOfMeasure: String,
-    val description: String
+    val description: String,
 )

@@ -17,8 +17,15 @@ class CategoriesListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View {
         _binding = FragmentListCategoriesBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private fun init(){
+        binding.apply {
+
+        }
     }
 }

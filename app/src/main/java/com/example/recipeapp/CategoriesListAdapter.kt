@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import model.Category
 
 class CategoriesListAdapter(
-    private val dataSet: Category,
+    private val dataSet: List<Category>,
     private val fragment: CategoriesListFragment
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,15 +25,14 @@ class CategoriesListAdapter(
         viewType: Int
     ): CategoriesListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
-
-        return TODO()
+        return ViewHolder(inflater)
     }
 
     override fun onBindViewHolder(holder: CategoriesListAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val viewHolder = TODO()
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return dataSet.size
     }
 }

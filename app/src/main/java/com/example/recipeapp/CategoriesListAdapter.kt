@@ -16,7 +16,7 @@ class CategoriesListAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val categoryItem: CardView = itemView.findViewById(R.id.cvCategoryItem)
         val categoryImage: ImageView = itemView.findViewById(R.id.ivCategoryImage)
-        val categoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
+        var categoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
         val categoryDescription: TextView = itemView.findViewById(R.id.tvCategoryDescription)
     }
 
@@ -28,8 +28,8 @@ class CategoriesListAdapter(
         return ViewHolder(inflater)
     }
 
-    override fun onBindViewHolder(holder: CategoriesListAdapter.ViewHolder, position: Int) {
-        val viewHolder = TODO()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.categoryName = dataSet.get(position).title
     }
 
     override fun getItemCount(): Int {

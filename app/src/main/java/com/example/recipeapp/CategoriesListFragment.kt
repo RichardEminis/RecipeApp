@@ -18,7 +18,7 @@ class CategoriesListFragment : Fragment() {
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
 
-    fun initRecycler(): CategoriesListAdapter {
+    private fun initRecycler(): CategoriesListAdapter {
         val adapter = CategoriesListAdapter(STUB.getCategories(), this)
         return adapter
     }

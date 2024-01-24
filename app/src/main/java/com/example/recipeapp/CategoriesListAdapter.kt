@@ -47,7 +47,7 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryName.text = dataSet[position].title
-        holder.categoryDescription.text = dataSet[position].title
+        holder.categoryDescription.text = dataSet[position].description
         holder.categoryImage.setImageDrawable(
             getDrawableFromAssets(
                 dataSet[position].imageUrl,

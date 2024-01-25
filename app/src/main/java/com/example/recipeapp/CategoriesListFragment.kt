@@ -20,6 +20,9 @@ class CategoriesListFragment : Fragment() {
 
     private fun initRecycler(): CategoriesListAdapter {
         val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        recyclerView = view?.findViewById(R.id.rvCategories)!!
+        recyclerView.adapter = adapter
+        
         return adapter
     }
 
@@ -35,8 +38,7 @@ class CategoriesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.rvCategories)
-        recyclerView.adapter = initRecycler()
+        initRecycler()
     }
 
     private fun init() {

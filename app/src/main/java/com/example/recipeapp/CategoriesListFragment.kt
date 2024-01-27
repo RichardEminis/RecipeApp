@@ -18,14 +18,6 @@ class CategoriesListFragment : Fragment() {
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
 
-    private fun initRecycler(): CategoriesListAdapter {
-        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
-        recyclerView = view?.findViewById(R.id.rvCategories)!!
-        recyclerView.adapter = adapter
-        
-        return adapter
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,14 +27,15 @@ class CategoriesListFragment : Fragment() {
         return binding.root
     }
 
+    private fun initRecycler() {
+        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        recyclerView = view?.findViewById(R.id.rvCategories)!!
+        recyclerView.adapter = adapter
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecycler()
-    }
-
-    private fun init() {
-        binding.apply {
-        }
     }
 }

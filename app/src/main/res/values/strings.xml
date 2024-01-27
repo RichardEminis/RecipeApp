@@ -2,4 +2,7 @@
     <string name="app_name">RecipeApp</string>
     <string name="text_favorite_button">"ИЗБРАННОЕ"</string>
     <string name="text_category_button">"КАТЕГОРИИ"</string>
+    <string name="category_name">"БУРГЕРЫ"</string>
+    <string name="description">"Рецепты всех популярных видов бургеров"</string>
+    <string name="category_image_description">Изображение категории название_категории</string>
 </resources>

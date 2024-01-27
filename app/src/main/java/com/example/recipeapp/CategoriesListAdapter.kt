@@ -14,20 +14,18 @@ import model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>,
-    private val fragment: CategoriesListFragment
+    private val dataSet: List<Category>, private val fragment: CategoriesListFragment
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val context: Context = view.context
         val categoryItem: CardView = itemView.findViewById(R.id.cvCategoryItem)
         var categoryImage: ImageView = itemView.findViewById(R.id.ivCategoryImage)
         var categoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
         val categoryDescription: TextView = itemView.findViewById(R.id.tvCategoryDescription)
     }
 
-    private fun getDrawableFromAssets(imageUrl: String, context: Context): Drawable? {
+    private fun getDrawableFromAssets(imageUrl: String): Drawable? {
         try {
-            val inputStream: InputStream = context.assets.open(imageUrl)
+            val inputStream: InputStream? = fragment.context?.assets?.open(imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             return drawable
         } catch (exception: Exception) {
@@ -37,8 +35,7 @@ class CategoriesListAdapter(
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): CategoriesListAdapter.ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
@@ -48,12 +45,7 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryName.text = dataSet[position].title
         holder.categoryDescription.text = dataSet[position].description
-        holder.categoryImage.setImageDrawable(
-            getDrawableFromAssets(
-                dataSet[position].imageUrl,
-                holder.context
-            )
-        )
+        holder.categoryImage.setImageDrawable(getDrawableFromAssets(dataSet[position].imageUrl))
     }
 
     override fun getItemCount(): Int {

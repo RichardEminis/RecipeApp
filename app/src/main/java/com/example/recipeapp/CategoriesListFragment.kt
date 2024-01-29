@@ -11,7 +11,7 @@ import data.STUB
 
 class CategoriesListFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+    private var recyclerView: RecyclerView? = null
 
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding
@@ -27,15 +27,15 @@ class CategoriesListFragment : Fragment() {
         return binding.root
     }
 
-    private fun initRecycler() {
-        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
-        recyclerView = view?.findViewById(R.id.rvCategories)!!
-        recyclerView.adapter = adapter
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecycler()
+    }
+
+    private fun initRecycler() {
+        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        recyclerView = binding.rvCategories
+        recyclerView!!.adapter = adapter
     }
 }

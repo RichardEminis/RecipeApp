@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
+import data.STUB
 
 class CategoriesListFragment : Fragment() {
+
+    private var recyclerView: RecyclerView? = null
 
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding
@@ -23,9 +27,15 @@ class CategoriesListFragment : Fragment() {
         return binding.root
     }
 
-    private fun init(){
-        binding.apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        }
+        initRecycler()
+    }
+
+    private fun initRecycler() {
+        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        recyclerView = binding.rvCategories
+        recyclerView!!.adapter = adapter
     }
 }

@@ -3,4 +3,9 @@
     <dimen name="indent_button">2dp</dimen>
     <dimen name="main_half">8dp</dimen>
     <dimen name="main_indent">16dp</dimen>
+    <dimen name="image_height">130dp</dimen>
+    <dimen name="padding_bottom">10dp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <dimen name="text_category_size">20sp</dimen>
+
 </resources>

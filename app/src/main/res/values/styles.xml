@@ -5,38 +5,40 @@
         <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:textAllCaps">true</item>
-        <item name="cornerRadius">8dp</item>
+        <item name="cornerRadius">@dimen/main_half</item>
     </style>
 
     <style name="StyleNavButton" parent="StyleTitle14">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textAppearance">@style/StyleTitle14</item>
-        <item name="android:paddingVertical">10dp</item>
-        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">@dimen/padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/padding_bottom</item>
     </style>
 
     <style name="StyleCategory" parent="StyleTitle14">
         <item name="android:textColor">@color/category_color</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_category_size</item>
         <item name="android:textAppearance">@style/StyleTitle14</item>
-        <item name="android:paddingVertical">10dp</item>
-        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">@dimen/padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/padding_bottom</item>
     </style>
 
     <style name="CardStyle1" parent="StyleTitle14">
         <item name="android:textColor">@color/category_color</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textAppearance">@style/StyleTitle14</item>
-        <item name="android:paddingVertical">8dp</item>
-        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingVertical">@dimen/main_half</item>
+        <item name="android:paddingHorizontal">@dimen/main_half</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="CardStyle2" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textFontWeight">500</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingBottom">@dimen/padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/main_half</item>
         <item name="android:textColor">@color/card_text_opacity</item>
+        <item name="android:background">@color/white</item>
     </style>
 </resources>

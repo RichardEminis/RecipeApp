@@ -36,6 +36,6 @@ class CategoriesListFragment : Fragment() {
     private fun initRecycler() {
         val adapter = CategoriesListAdapter(STUB.getCategories(), this)
         recyclerView = binding.rvCategories
-        recyclerView!!.adapter = adapter
+        recyclerView?.adapter = adapter
     }
 }

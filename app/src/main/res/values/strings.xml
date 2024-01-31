@@ -2,4 +2,6 @@
     <string name="app_name">RecipeApp</string>
     <string name="text_favorite_button">"ИЗБРАННОЕ"</string>
     <string name="text_category_button">"КАТЕГОРИИ"</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_list_identifier">Здесь будут отображаться все рецепты</string>
 </resources>

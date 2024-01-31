@@ -37,6 +37,14 @@ class CategoriesListFragment : Fragment() {
         initRecycler()
     }
 
+    private fun openRecipesByCategoryId() {
+        parentFragmentManager.commit {
+            replace<RecipesListFragment>(R.id.mainContainer)
+            setReorderingAllowed(true)
+            addToBackStack(null)
+        }
+    }
+
     private fun initRecycler() {
         val adapter = CategoriesListAdapter(STUB.getCategories(), this)
         recyclerView = binding.rvCategories
@@ -44,13 +52,7 @@ class CategoriesListFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick() {
-                fun openRecipesByCategoryId(activity: MainActivity) {
-                    activity.supportFragmentManager.commit {
-                        replace<RecipesListFragment>(R.id.mainContainer)
-                        setReorderingAllowed(true)
-                        addToBackStack(null)
-                    }
-                }
+                openRecipesByCategoryId()
             }
         })
     }

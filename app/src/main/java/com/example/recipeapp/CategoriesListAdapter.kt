@@ -14,8 +14,14 @@ import model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>, private val fragment: CategoriesListFragment
+    private val dataSet: List<Category>, private val fragment: CategoriesListFragment,
+    private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick()
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val categoryItem: CardView = itemView.findViewById(R.id.cvCategoryItem)
         var categoryImage: ImageView = itemView.findViewById(R.id.ivCategoryImage)
@@ -46,9 +52,16 @@ class CategoriesListAdapter(
         holder.categoryName.text = dataSet[position].title
         holder.categoryDescription.text = dataSet[position].description
         holder.categoryImage.setImageDrawable(getDrawableFromAssets(dataSet[position].imageUrl))
+        holder.categoryItem.setOnClickListener {
+            itemClickListener?.onItemClick()
+        }
     }
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 }

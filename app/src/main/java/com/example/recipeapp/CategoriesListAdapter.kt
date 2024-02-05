@@ -1,6 +1,5 @@
 package com.example.recipeapp
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ class CategoriesListAdapter(
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick()
+        fun onItemClick(categoryId: Int)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -53,7 +52,7 @@ class CategoriesListAdapter(
         holder.categoryDescription.text = dataSet[position].description
         holder.categoryImage.setImageDrawable(getDrawableFromAssets(dataSet[position].imageUrl))
         holder.categoryItem.setOnClickListener {
-            itemClickListener?.onItemClick()
+            itemClickListener?.onItemClick(dataSet[position].id)
         }
     }
 

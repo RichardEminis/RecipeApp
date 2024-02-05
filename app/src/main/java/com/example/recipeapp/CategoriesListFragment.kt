@@ -1,12 +1,12 @@
 package com.example.recipeapp
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +37,23 @@ class CategoriesListFragment : Fragment() {
         initRecycler()
     }
 
-    private fun openRecipesByCategoryId() {
+    private fun openRecipesByCategoryId(categoryId: Int) {
         parentFragmentManager.commit {
             replace<RecipesListFragment>(R.id.mainContainer)
             setReorderingAllowed(true)
             addToBackStack(null)
+        }
+
+        val categoryName = STUB.getCategories()[categoryId].title
+        val categoryImageUrl = STUB.getCategories()[categoryId].imageUrl
+        val bundle = bundleOf(
+            "ARG_CATEGORY_ID" to categoryId,
+            "ARG_CATEGORY_NAME" to categoryName,
+            "ARG_CATEGORY_IMAGE_URL" to categoryImageUrl
+        )
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            add<RecipesListFragment>(R.id.mainContainer, args = bundle)
         }
     }
 
@@ -51,8 +63,8 @@ class CategoriesListFragment : Fragment() {
         recyclerView?.adapter = adapter
 
         adapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
-            override fun onItemClick() {
-                openRecipesByCategoryId()
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
             }
         })
     }

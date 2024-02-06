@@ -16,10 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_list_height"
             android:scaleType="centerCrop"
+            android:src="@drawable/burger"
+            android:verticalScrollbarPosition="defaultPosition"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             style="@style/StyleCategory"
@@ -30,7 +32,18 @@
             android:background="@drawable/shape_rounded_variants"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/recipe_list_identifier" />
+            android:text="@string/text_burger" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/main_half"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="1"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_category"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

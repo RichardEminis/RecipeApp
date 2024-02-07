@@ -43,7 +43,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:spanCount="1"
             tools:itemCount="8"
-            tools:listitem="@layout/item_category"/>
+            tools:listitem="@layout/item_recipe"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

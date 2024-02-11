@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import data.STUB
 
 class RecipesListFragment : Fragment() {
+
+    private var recyclerView: RecyclerView? = null
 
     private var _binding: FragmentRecipesListBinding? = null
     private val binding
@@ -40,5 +44,11 @@ class RecipesListFragment : Fragment() {
             categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
             categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
         }
+    }
+
+    private fun initRecycler() {
+        val adapter = STUB.getRecipesByCategoryId(categoryId = 1)?.let { RecipeListAdapter(it, this) }
+        recyclerView = binding.rvRecipes
+        recyclerView?.adapter = adapter
     }
 }

@@ -17,7 +17,7 @@ import java.io.InputStream
 class RecipeListAdapter(
     private val dataSet: List<Recipe>,
     private val fragment: RecipesListFragment,
-    private var itemClickListener: RecipeListAdapter.OnItemClickListener? = null
+    private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -46,10 +46,10 @@ class RecipeListAdapter(
     ): RecipeListAdapter.ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
-        return RecipeListAdapter.ViewHolder(inflater)
+        return ViewHolder(inflater)
     }
 
-    override fun onBindViewHolder(holder: RecipeListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recipeName.text = dataSet[position].title
         holder.recipeImage.setImageDrawable(getDrawableFromAssets(dataSet[position].imageUrl))
         holder.recipeItem.setOnClickListener {
@@ -61,7 +61,7 @@ class RecipeListAdapter(
         return dataSet.size
     }
 
-    fun setOnItemClickListener(listener: RecipeListAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
     }
 }

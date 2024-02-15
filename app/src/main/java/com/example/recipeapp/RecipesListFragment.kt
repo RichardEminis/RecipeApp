@@ -39,15 +39,11 @@ class RecipesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arguments = let {
-            categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
-            categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
-            categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
-        }
+        initRecycler()
     }
 
     private fun initRecycler() {
-        val adapter = STUB.getRecipesByCategoryId(categoryId = 1)?.let { RecipeListAdapter(it, this) }
+        val adapter = STUB.getRecipesByCategoryId(categoryId)?.let { RecipeListAdapter(it, this) }
         recyclerView = binding.rvRecipes
         recyclerView?.adapter = adapter
     }

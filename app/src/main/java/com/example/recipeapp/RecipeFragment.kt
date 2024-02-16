@@ -7,18 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
-
 class RecipeFragment : Fragment() {
-    private var _binding: FragmentRecipeBinding? = null
-    private val binding
-        get() = _binding
-            ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
+    private val binding: FragmentRecipeBinding by lazy {
+        FragmentRecipeBinding.inflate(layoutInflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

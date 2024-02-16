@@ -75,5 +75,11 @@ class RecipesListFragment : Fragment() {
         val adapter = STUB.getRecipesByCategoryId(categoryId)?.let { RecipeListAdapter(it, this) }
         recyclerView = binding.rvRecipes
         recyclerView?.adapter = adapter
+
+        adapter?.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+            override fun onItemClick(recipeId: Int) {
+                openRecipeByRecipeId(recipeId)
+            }
+        })
     }
 }

@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".RecipesListFragment">
+    tools:context=".RecipesListFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <ImageView
             android:id="@+id/recipe_list_image"
@@ -22,7 +24,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             style="@style/StyleCategory"
@@ -33,7 +38,8 @@
             android:background="@drawable/shape_rounded_variants"
             android:text="@string/text_burger"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

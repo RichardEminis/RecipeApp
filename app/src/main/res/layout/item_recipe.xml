@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvRecipeItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,13 +21,16 @@
             android:id="@+id/ivRecipeImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_recipe_height"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/tvRecipeName"
             style="@style/CardStyle1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="@string/recipe_list_identifier" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -72,7 +72,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = STUB.getRecipesByCategoryId(categoryId)?.let { RecipeListAdapter(it, this) }
+        val adapter = STUB.getRecipesByCategoryId(categoryId)?.let { RecipeListAdapter(it) }
         recyclerView = binding.rvRecipes
         recyclerView?.adapter = adapter
 

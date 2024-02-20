@@ -6,14 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemRecipeBinding
-import model.Category
-import model.Ingredient
 import model.Recipe
 import java.io.InputStream
 
@@ -44,13 +38,12 @@ class RecipeListAdapter(
             imageUrl: String,
             context: Context
         ): Drawable? {
-            try {
+            return try {
                 val inputStream: InputStream? = context.assets?.open(imageUrl)
-                val drawable = Drawable.createFromStream(inputStream, null)
-                return drawable
+                Drawable.createFromStream(inputStream, null)
             } catch (exception: Exception) {
                 Log.e("mylog", "Error: $exception")
-                return null
+                null
             }
         }
     }

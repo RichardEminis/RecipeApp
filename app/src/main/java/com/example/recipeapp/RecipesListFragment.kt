@@ -60,9 +60,9 @@ class RecipesListFragment : Fragment() {
         val recipeName = STUB.getRecipesByCategoryId(categoryId)?.get(recipeId)?.title
         val recipeImageUrl = STUB.getRecipesByCategoryId(categoryId)?.get(recipeId)?.imageUrl
         val bundle = bundleOf(
-            "ARG_RECIPE_ID" to recipeId,
-            "ARG_RECIPE_NAME" to recipeName,
-            "ARG_RECIPE_IMAGE_URL" to recipeImageUrl
+            ARG_RECIPE_ID to recipeId,
+            ARG_RECIPE_NAME to recipeName,
+            ARG_RECIPE_IMAGE_URL to recipeImageUrl
         )
 
         parentFragmentManager.commit {

@@ -24,13 +24,13 @@
 
         <TextView
             android:id="@+id/tvCategoryName"
-            style="@style/CardStyle1"
+            style="@style/RecipeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvCategoryDescription"
-            style="@style/CardStyle2"
+            style="@style/CategoryStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

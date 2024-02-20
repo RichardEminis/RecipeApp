@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/tvRecipeName"
-            style="@style/CardStyle1"
+            style="@style/RecipeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/recipe_list_identifier" />

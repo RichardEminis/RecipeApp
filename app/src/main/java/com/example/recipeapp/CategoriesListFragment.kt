@@ -38,12 +38,6 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        parentFragmentManager.commit {
-            replace<RecipesListFragment>(R.id.mainContainer)
-            setReorderingAllowed(true)
-            addToBackStack(null)
-        }
-
         val categoryName = STUB.getCategories()[categoryId].title
         val categoryImageUrl = STUB.getCategories()[categoryId].imageUrl
         val bundle = bundleOf(

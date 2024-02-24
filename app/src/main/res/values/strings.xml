@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RecipeApp</string>
-    <string name="text_favorite_button">"ИЗБРАННОЕ"</string>
-    <string name="text_category_button">"КАТЕГОРИИ"</string>
-    <string name="recipe_list_identifier">Здесь будут отображаться все рецепты</string>
+    <string name="text_favorite_button">"избранное"</string>
+    <string name="text_category_button">"категории"</string>
+    <string name="recipe_list_identifier" translatable="false">Здесь будут отображаться все рецепты</string>
 </resources>

@@ -8,5 +8,6 @@
     <dimen name="text_size">14sp</dimen>
     <dimen name="text_category_size">20sp</dimen>
     <dimen name="recipe_list_height">256dp</dimen>
+    <dimen name="image_recipe_height">130dp</dimen>
 
 </resources>

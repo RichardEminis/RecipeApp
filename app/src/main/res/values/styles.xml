@@ -24,7 +24,7 @@
         <item name="android:paddingHorizontal">@dimen/padding_bottom</item>
     </style>
 
-    <style name="CardStyle1" parent="StyleTitle14">
+    <style name="RecipeStyle" parent="StyleTitle14">
         <item name="android:textColor">@color/category_color</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="android:textAppearance">@style/StyleTitle14</item>
@@ -33,7 +33,7 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="CardStyle2" parent="TextAppearance.AppCompat">
+    <style name="CategoryStyle" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:paddingBottom">@dimen/padding_bottom</item>

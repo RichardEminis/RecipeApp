@@ -244,4 +244,6 @@ object STUB {
         return if (categoryId == 0) burgerRecipes
         else null
     }
+
+    fun getRecipeById(recipeId: Int): List<String> = burgerRecipes[recipeId].method
 }

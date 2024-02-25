@@ -245,5 +245,5 @@ object STUB {
         else null
     }
 
-    fun getRecipeById(recipeId: Int): List<String> = burgerRecipes[recipeId].method
+    fun getRecipeById(recipeId: Int): Recipe = burgerRecipes[recipeId]
 }

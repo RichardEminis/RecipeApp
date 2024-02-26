@@ -27,11 +27,14 @@ class RecipeFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recipe: Recipe? = arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
+        val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
+        } else {
+            arguments?.getParcelable(ARG_RECIPE)
+        }
 
         if (recipe != null) {
             binding.recipeText.text = recipe.title

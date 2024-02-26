@@ -54,9 +54,7 @@ class RecipesListFragment : Fragment() {
 
         val recipe = STUB.getRecipeById(recipeId)
 
-        val bundle = Bundle().apply {
-            putParcelable(ARG_RECIPE, recipe)
-        }
+        val bundle = bundleOf(ARG_RECIPE to recipe)
 
         parentFragmentManager.commit {
             setReorderingAllowed(true)

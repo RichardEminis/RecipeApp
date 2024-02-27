@@ -51,19 +51,10 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-        parentFragmentManager.commit {
-            replace<RecipeFragment>(R.id.mainContainer)
-            setReorderingAllowed(true)
-            addToBackStack(null)
-        }
 
-        val recipeName = STUB.getRecipesByCategoryId(categoryId)?.get(recipeId)?.title
-        val recipeImageUrl = STUB.getRecipesByCategoryId(categoryId)?.get(recipeId)?.imageUrl
-        val bundle = bundleOf(
-            ARG_RECIPE_ID to recipeId,
-            ARG_RECIPE_NAME to recipeName,
-            ARG_RECIPE_IMAGE_URL to recipeImageUrl
-        )
+        val recipe = STUB.getRecipeById(recipeId)
+
+        val bundle = bundleOf(ARG_RECIPE to recipe)
 
         parentFragmentManager.commit {
             setReorderingAllowed(true)

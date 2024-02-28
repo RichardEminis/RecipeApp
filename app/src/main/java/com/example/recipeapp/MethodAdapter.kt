@@ -4,10 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import model.Ingredient
+import model.Recipe
 
 class MethodAdapter(
-    private val dataSet: List<Ingredient>
-): RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
+    private val dataSet: List<Recipe>
+) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }

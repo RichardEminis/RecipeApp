@@ -7,4 +7,7 @@
     <color name="background_color">#F4FAFF</color>
     <color name="category_color">#5F3678</color>
     <color name="card_text_opacity">#99000000</color>
+    <color name="portion_color">#626466</color>
+    <color name="ingredients_text_color">#666666</color>
+
 </resources>

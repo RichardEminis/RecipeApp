@@ -3,4 +3,8 @@
     <string name="text_favorite_button">"избранное"</string>
     <string name="text_category_button">"категории"</string>
     <string name="recipe_list_identifier" translatable="false">Здесь будут отображаться все рецепты</string>
+    <string name="text_ingredient">"ингредиенты"</string>
+    <string name="text_portion">"Порции:"</string>
+    <string name="text_method">"способ приготовления"</string>
+
 </resources>

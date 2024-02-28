@@ -7,11 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import data.STUB
 import model.Recipe
 
 class RecipeFragment : Fragment() {
+
+    private var recyclerView: RecyclerView? = null
+
+    private var categoryId: Int? = 0
 
     private var _binding: FragmentRecipeBinding? = null
 
@@ -39,5 +46,22 @@ class RecipeFragment : Fragment() {
         if (recipe != null) {
             binding.recipeText.text = recipe.title
         }
+    }
+
+    private fun initUI() {
+        binding.recipeListImage.setImageResource(R.drawable.burger)
+
+        binding.recipeText.text = "TODO"
+    }
+
+    private fun initRecycler() {
+        val ingredientsAdapter =
+            STUB.getRecipesByCategoryId(categoryId)?.let { IngredientsAdapter(it) }
+        recyclerView = binding.rvIngredients
+        recyclerView?.adapter = ingredientsAdapter
+
+        val methodAdapter = STUB.getRecipesByCategoryId(categoryId)?.let { MethodAdapter(it) }
+        recyclerView = binding.rvMethod
+        recyclerView?.adapter = methodAdapter
     }
 }

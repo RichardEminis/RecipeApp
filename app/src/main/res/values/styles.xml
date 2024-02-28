@@ -41,4 +41,23 @@
         <item name="android:textColor">@color/card_text_opacity</item>
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="RecipePortion" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:paddingBottom">@dimen/padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/main_half</item>
+        <item name="android:textColor">@color/card_text_opacity</item>
+    </style>
+
+    <style name="IngredientsTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textFontWeight">175</item>
+        <item name="android:paddingBottom">@dimen/padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/main_half</item>
+        <item name="android:textColor">@color/card_text_opacity</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
 </resources>

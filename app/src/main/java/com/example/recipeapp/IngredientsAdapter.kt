@@ -3,6 +3,7 @@ package com.example.recipeapp
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import model.Ingredient
 import model.Recipe
 
 class IngredientsAdapter(

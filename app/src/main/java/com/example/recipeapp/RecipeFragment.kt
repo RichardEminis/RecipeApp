@@ -2,25 +2,23 @@ package com.example.recipeapp
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
 import model.Recipe
 
 class RecipeFragment : Fragment() {
 
+
     private var recyclerView: RecyclerView? = null
 
     private var categoryId: Int? = 0
-
-    private var _binding: FragmentRecipeBinding? = null
 
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
@@ -30,7 +28,6 @@ class RecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,12 +43,20 @@ class RecipeFragment : Fragment() {
         if (recipe != null) {
             binding.recipeText.text = recipe.title
         }
+
+        val mDividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
+        ContextCompat.getDrawable(requireContext(), androidx.appcompat.R.drawable.abc_list_divider_material)
+            ?.let { mDividerItemDecoration.setDrawable(it) }
+        binding.rvIngredients.addItemDecoration(mDividerItemDecoration)
+
+        initUI()
+        initRecycler()
     }
 
     private fun initUI() {
         binding.recipeListImage.setImageResource(R.drawable.burger)
 
-        binding.recipeText.text = "TODO"
+        binding.recipeText.text = STUB.getRecipeById(0).title
     }
 
     private fun initRecycler() {

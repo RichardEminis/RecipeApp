@@ -1,27 +1,34 @@
 package com.example.recipeapp
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import model.Ingredient
+import com.example.recipeapp.databinding.FragmentRecipeBinding
 import model.Recipe
 
 class MethodAdapter(
     private val dataSet: List<Recipe>
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        val binding =
+            FragmentRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val step = listOf(dataSet[position])
+        holder.bind(step)
+    }
+
+    override fun getItemCount(): Int {
+        return dataSet.size
+    }
+
+    class ViewHolder(private val binding: FragmentRecipeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(method: List<Recipe>) {
+            val adapter = MethodAdapter(method)
+            binding.rvMethod.adapter = adapter
+        }
     }
 }

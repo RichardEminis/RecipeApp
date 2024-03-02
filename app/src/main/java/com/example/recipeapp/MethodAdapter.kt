@@ -7,7 +7,7 @@ import com.example.recipeapp.databinding.FragmentRecipeBinding
 import model.Recipe
 
 class MethodAdapter(
-    private val dataSet: List<Recipe>
+    private val dataSet: Recipe
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

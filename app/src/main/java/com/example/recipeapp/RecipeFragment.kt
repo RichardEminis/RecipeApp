@@ -15,10 +15,7 @@ import model.Recipe
 
 class RecipeFragment : Fragment() {
 
-
-    private var recyclerView: RecyclerView? = null
-
-    private var categoryId: Int? = 0
+    private var recipeId: Int = 0
 
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
@@ -45,7 +42,10 @@ class RecipeFragment : Fragment() {
         }
 
         val mDividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        ContextCompat.getDrawable(requireContext(), androidx.appcompat.R.drawable.abc_list_divider_material)
+        ContextCompat.getDrawable(
+            requireContext(),
+            androidx.appcompat.R.drawable.abc_list_divider_material
+        )
             ?.let { mDividerItemDecoration.setDrawable(it) }
         binding.rvIngredients.addItemDecoration(mDividerItemDecoration)
 
@@ -61,12 +61,10 @@ class RecipeFragment : Fragment() {
 
     private fun initRecycler() {
         val ingredientsAdapter =
-            STUB.getRecipesByCategoryId(categoryId)?.let { IngredientsAdapter(it) }
-        recyclerView = binding.rvIngredients
-        recyclerView?.adapter = ingredientsAdapter
+            IngredientsAdapter(STUB.getRecipeById(recipeId))
+        binding.rvIngredients.adapter = ingredientsAdapter
 
-        val methodAdapter = STUB.getRecipesByCategoryId(categoryId)?.let { MethodAdapter(it) }
-        recyclerView = binding.rvMethod
-        recyclerView?.adapter = methodAdapter
+        val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+        binding.rvMethod.adapter = methodAdapter
     }
 }

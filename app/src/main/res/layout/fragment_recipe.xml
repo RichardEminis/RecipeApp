@@ -88,7 +88,10 @@
                 android:layout_marginStart="@dimen/main_indent"
                 android:layout_marginTop="@dimen/main_indent"
                 android:layout_marginEnd="@dimen/main_indent"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_ingredients" />
 
             <TextView
                 android:id="@+id/textView"
@@ -112,7 +115,9 @@
                 android:layout_marginTop="@dimen/main_indent"
                 android:layout_marginEnd="@dimen/main_indent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_method" />
 
             <ImageView
                 android:id="@+id/imageView"

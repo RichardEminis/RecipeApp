@@ -1,6 +1,9 @@
 package com.example.recipeapp
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +14,8 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
+import java.io.IOException
+import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
@@ -48,6 +53,9 @@ class RecipesListFragment : Fragment() {
 
         binding.recipeListText.text = categoryName
 
+        val drawable = categoryImageUrl?.let { getDrawableFromAssets(it, requireContext()) }
+        binding.recipeListImage.setImageDrawable(drawable)
+
         initRecycler()
     }
 
@@ -73,5 +81,18 @@ class RecipesListFragment : Fragment() {
                 openRecipeByRecipeId(recipeId)
             }
         })
+    }
+
+    private fun getDrawableFromAssets(
+        imageUrl: String,
+        context: Context
+    ): Drawable? {
+        return try {
+            val inputStream: InputStream? = context.assets?.open(imageUrl)
+            Drawable.createFromStream(inputStream, null)
+        } catch (exception: Exception) {
+            Log.e("mylog", "Error: $exception")
+            null
+        }
     }
 }

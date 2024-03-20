@@ -1,7 +1,10 @@
 package com.example.recipeapp
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
 import model.Recipe
+import java.io.InputStream
 
 class RecipeFragment : Fragment() {
 
@@ -46,11 +50,13 @@ class RecipeFragment : Fragment() {
         binding.rvIngredients.addItemDecoration(mDividerItemDecoration)
 
         initUI(recipe)
+
         initRecycler()
     }
 
     private fun initUI(recipe: Recipe?) {
-        binding.recipeListImage.setImageResource(R.drawable.burger)
+        val drawable = recipe?.imageUrl?.let { getDrawableFromAssets(it, requireContext()) }
+        binding.recipeImage.setImageDrawable(drawable)
 
         if (recipe != null) {
             binding.recipeText.text = recipe.title
@@ -64,5 +70,18 @@ class RecipeFragment : Fragment() {
 
         val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
         binding.rvMethod.adapter = methodAdapter
+    }
+
+    private fun getDrawableFromAssets(
+        imageUrl: String,
+        context: Context
+    ): Drawable? {
+        return try {
+            val inputStream: InputStream? = context.assets?.open(imageUrl)
+            Drawable.createFromStream(inputStream, null)
+        } catch (exception: Exception) {
+            Log.e("mylog", "Error: $exception")
+            null
+        }
     }
 }

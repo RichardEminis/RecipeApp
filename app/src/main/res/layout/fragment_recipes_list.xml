@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_list_height"
             android:scaleType="centerCrop"
-            android:src="@drawable/burger"
+            tools:src="@drawable/burger"
             android:verticalScrollbarPosition="defaultPosition"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -17,9 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
-                android:id="@+id/recipeListImage"
+                android:id="@+id/recipeImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/recipe_list_height"
                 android:scaleType="centerCrop"
@@ -42,8 +41,8 @@
                 android:layout_marginStart="@dimen/main_indent"
                 android:layout_marginBottom="@dimen/main_indent"
                 android:background="@drawable/shape_rounded_variants"
-                app:layout_constraintBottom_toBottomOf="@+id/recipeListImage"
-                app:layout_constraintStart_toStartOf="@+id/recipeListImage"
+                app:layout_constraintBottom_toBottomOf="@+id/recipeImage"
+                app:layout_constraintStart_toStartOf="@+id/recipeImage"
                 tools:text="Бургер с грибами и сыром" />
 
             <TextView
@@ -56,7 +55,7 @@
                 android:padding="0dp"
                 android:text="@string/text_ingredient"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipeListImage" />
+                app:layout_constraintTop_toBottomOf="@+id/recipeImage" />
 
             <TextView
                 android:id="@+id/textView3"

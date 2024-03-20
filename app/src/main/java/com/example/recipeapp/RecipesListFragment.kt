@@ -46,7 +46,7 @@ class RecipesListFragment : Fragment() {
         categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
         categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
 
-        binding.recipeText.text = categoryName
+        binding.recipeListText.text = categoryName
 
         initRecycler()
     }

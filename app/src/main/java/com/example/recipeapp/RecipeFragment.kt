@@ -37,10 +37,6 @@ class RecipeFragment : Fragment() {
             arguments?.getParcelable(ARG_RECIPE)
         }
 
-        if (recipe != null) {
-            binding.recipeText.text = recipe.title
-        }
-
         val mDividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
         ContextCompat.getDrawable(
             requireContext(),
@@ -49,14 +45,16 @@ class RecipeFragment : Fragment() {
             ?.let { mDividerItemDecoration.setDrawable(it) }
         binding.rvIngredients.addItemDecoration(mDividerItemDecoration)
 
-        initUI()
+        initUI(recipe)
         initRecycler()
     }
 
-    private fun initUI() {
+    private fun initUI(recipe: Recipe?) {
         binding.recipeListImage.setImageResource(R.drawable.burger)
 
-        binding.recipeText.text = STUB.getRecipeById(0).title
+        if (recipe != null) {
+            binding.recipeText.text = recipe.title
+        }
     }
 
     private fun initRecycler() {

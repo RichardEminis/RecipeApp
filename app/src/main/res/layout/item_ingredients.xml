@@ -8,15 +8,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvIngredientsText"
+            android:id="@+id/tvIngredientsDescription"
             style="@style/IngredientsTextStyle"
-            tools:text="Бургер с грибами и сыром"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="ингредиент" />
+
+        <TextView
+            android:id="@+id/tvIngredientsUnitOfMeasure"
+            style="@style/IngredientsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="mesure" />
+
+        <TextView
+            android:id="@+id/tvIngredientsQuantity"
+            style="@style/IngredientsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="кличество" />
 
     </LinearLayout>
 

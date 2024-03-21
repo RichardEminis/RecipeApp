@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
@@ -64,11 +65,15 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val ingredientsAdapter =
-            IngredientsAdapter(STUB.getRecipeById(recipeId))
+        val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
+        val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+
+        val linearLayoutManagerIngredients = LinearLayoutManager(context)
+        binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
         binding.rvIngredients.adapter = ingredientsAdapter
 
-        val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+        val linearLayoutManagerMethod = LinearLayoutManager(context)
+        binding.rvMethod.layoutManager = linearLayoutManagerMethod
         binding.rvMethod.adapter = methodAdapter
     }
 

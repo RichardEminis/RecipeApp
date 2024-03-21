@@ -12,7 +12,10 @@ class IngredientsAdapter(
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var ingredients: TextView = itemView.findViewById(R.id.tvIngredientsText)
+        var ingredientsDescription: TextView = itemView.findViewById(R.id.tvIngredientsDescription)
+        var ingredientsUnitOfMeasure: TextView =
+            itemView.findViewById(R.id.tvIngredientsUnitOfMeasure)
+        var ingredientsQuantity: TextView = itemView.findViewById(R.id.tvIngredientsQuantity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +25,9 @@ class IngredientsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.ingredients.text = dataSet.listOfIngredients[position].description
+        holder.ingredientsDescription.text = dataSet.listOfIngredients[position].description
+        holder.ingredientsUnitOfMeasure.text = dataSet.listOfIngredients[position].unitOfMeasure
+        holder.ingredientsQuantity.text = dataSet.listOfIngredients[position].quantity
     }
 
     override fun getItemCount(): Int {

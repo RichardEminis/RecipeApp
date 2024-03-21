@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvMethodItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/main_half"
-    android:layout_marginTop="@dimen/main_indent">
+    android:layout_marginTop="@dimen/main_indent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvMethodText"
+        style="@style/IngredientsTextStyle"
+        tools:text="Бургер с грибами и сыром"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvMethodText"
-            style="@style/IngredientsTextStyle"
-            tools:text="Бургер с грибами и сыром"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

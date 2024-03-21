@@ -1,37 +1,31 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvIngredients"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/main_half"
-    android:layout_marginTop="@dimen/main_indent">
+    android:layout_marginTop="@dimen/main_indent"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tvIngredientsDescription"
+        style="@style/IngredientsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="ингредиент" />
 
-        <TextView
-            android:id="@+id/tvIngredientsDescription"
-            style="@style/IngredientsTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="ингредиент" />
+    <TextView
+        android:id="@+id/tvIngredientsQuantity"
+        style="@style/IngredientsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="mesure" />
 
-        <TextView
-            android:id="@+id/tvIngredientsUnitOfMeasure"
-            style="@style/IngredientsTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="mesure" />
+    <TextView
+        android:id="@+id/tvIngredientsUnitOfMeasure"
+        style="@style/IngredientsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="кличество" />
 
-        <TextView
-            android:id="@+id/tvIngredientsQuantity"
-            style="@style/IngredientsTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="кличество" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

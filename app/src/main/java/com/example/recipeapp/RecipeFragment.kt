@@ -8,11 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
 import model.Recipe
@@ -41,14 +38,6 @@ class RecipeFragment : Fragment() {
         } else {
             arguments?.getParcelable(ARG_RECIPE)
         }
-
-        val mDividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        ContextCompat.getDrawable(
-            requireContext(),
-            androidx.appcompat.R.drawable.abc_list_divider_material
-        )
-            ?.let { mDividerItemDecoration.setDrawable(it) }
-        binding.rvIngredients.addItemDecoration(mDividerItemDecoration)
 
         initUI(recipe)
 

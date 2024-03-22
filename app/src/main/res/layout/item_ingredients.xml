@@ -4,8 +4,8 @@
     android:id="@+id/cvIngredients"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/main_half"
-    android:layout_marginTop="@dimen/main_indent"
+    android:layout_marginHorizontal="@dimen/ingredients_text_indent"
+    android:layout_marginTop="@dimen/ingredients_text_indent"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout

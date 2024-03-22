@@ -4,13 +4,13 @@
     android:id="@+id/cvMethodItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/main_half"
-    android:layout_marginTop="@dimen/main_indent"
+    android:layout_marginHorizontal="@dimen/ingredients_text_indent"
+    android:layout_marginTop="@dimen/ingredients_text_indent"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvMethodText"
-        style="@style/IngredientsTextStyle"
+        style="@style/MethodTextStyle"
         tools:text="Бургер с грибами и сыром"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -1,5 +1,6 @@
 package com.example.recipeapp
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +22,9 @@ class MethodAdapter(
         return ViewHolder(inflater)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.methodText.text = dataSet.method[position]
+        holder.methodText.text = "${position + 1}. ${dataSet.method[position]}"
     }
 
     override fun getItemCount(): Int {

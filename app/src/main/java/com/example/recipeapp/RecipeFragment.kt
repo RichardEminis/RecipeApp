@@ -39,6 +39,8 @@ class RecipeFragment : Fragment() {
             arguments?.getParcelable(ARG_RECIPE)
         }
 
+        recipeId = recipe?.id ?: 0
+
         initUI(recipe)
 
         initRecycler()

@@ -76,17 +76,16 @@
                 android:layout_marginStart="@dimen/portion_indent"
                 android:layout_marginTop="@dimen/portion_indent"
                 android:layout_marginEnd="@dimen/portion_indent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 style="@style/IngredientsTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginHorizontal="@dimen/main_indent"
                 android:layout_marginTop="@dimen/main_indent"
-                android:layout_marginEnd="@dimen/main_indent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seekBar"
                 tools:itemCount="5"
@@ -102,17 +101,17 @@
                 android:padding="0dp"
                 android:text="@string/text_method"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvIngredients"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintTop_toBottomOf="@+id/rvIngredients" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMethod"
                 style="@style/IngredientsTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginHorizontal="@dimen/main_indent"
                 android:layout_marginTop="@dimen/main_indent"
-                android:layout_marginEnd="@dimen/main_indent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 tools:itemCount="5"

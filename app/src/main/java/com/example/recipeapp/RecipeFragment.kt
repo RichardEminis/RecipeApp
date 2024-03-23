@@ -33,20 +33,22 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUI()
+
+        initRecycler()
+    }
+
+    private fun initUI() {
         val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
         } else {
             arguments?.getParcelable(ARG_RECIPE)
         }
 
-        recipeId = recipe?.id ?: 0
+        if (recipe != null) {
+            recipeId = recipe.id
+        }
 
-        initUI(recipe)
-
-        initRecycler()
-    }
-
-    private fun initUI(recipe: Recipe?) {
         val drawable = recipe?.imageUrl?.let { getDrawableFromAssets(it, requireContext()) }
         binding.recipeImage.setImageDrawable(drawable)
 

@@ -22,26 +22,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/recipe_list_height"
                 android:scaleType="centerCrop"
-                android:verticalScrollbarPosition="defaultPosition"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 tools:src="@drawable/burger" />
 
             <TextView
                 android:id="@+id/recipeText"
                 style="@style/StyleCategory"
-                android:layout_width="242dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginHorizontal="@dimen/main_indent"
                 android:layout_marginBottom="@dimen/main_indent"
                 android:background="@drawable/shape_rounded_variants"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@+id/recipeImage"
+                app:layout_constraintEnd_toEndOf="@+id/recipeImage"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/recipeImage"
                 tools:text="Бургер с грибами и сыром" />
 

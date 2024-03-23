@@ -1,33 +1,33 @@
 package com.example.recipeapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.databinding.ItemIngredientsBinding
+import model.Ingredient
 import model.Recipe
 
 class IngredientsAdapter(
     private val dataSet: Recipe
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var ingredientsDescription: TextView = itemView.findViewById(R.id.tvIngredientsDescription)
-        var ingredientsUnitOfMeasure: TextView =
-            itemView.findViewById(R.id.tvIngredientsUnitOfMeasure)
-        var ingredientsQuantity: TextView = itemView.findViewById(R.id.tvIngredientsQuantity)
+    class ViewHolder(private val binding: ItemIngredientsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(ingredient: Ingredient) {
+            binding.tvIngredientsDescription.text = ingredient.description
+            binding.tvIngredientsUnitOfMeasure.text = ingredient.unitOfMeasure
+            binding.tvIngredientsQuantity.text = ingredient.quantity
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_ingredients, parent, false)
-        return ViewHolder(inflater)
+        val binding =
+            ItemIngredientsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.ingredientsDescription.text = dataSet.listOfIngredients[position].description
-        holder.ingredientsUnitOfMeasure.text = dataSet.listOfIngredients[position].unitOfMeasure
-        holder.ingredientsQuantity.text = dataSet.listOfIngredients[position].quantity
+        holder.bind(dataSet.listOfIngredients[position])
     }
 
     override fun getItemCount(): Int {

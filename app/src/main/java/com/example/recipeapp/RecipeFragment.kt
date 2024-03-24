@@ -1,5 +1,6 @@
 package com.example.recipeapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.databinding.FragmentRecipeBinding
@@ -68,6 +70,24 @@ class RecipeFragment : Fragment() {
         val linearLayoutManagerMethod = LinearLayoutManager(context)
         binding.rvMethod.layoutManager = linearLayoutManagerMethod
         binding.rvMethod.adapter = methodAdapter
+
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            @SuppressLint("SetTextI18n")
+            override fun onProgressChanged(
+                seekBar: SeekBar,
+                progress: Int,
+                fromUser: Boolean
+            ) {
+                binding.portionsValue.text = (progress + 1).toString()
+                ingredientsAdapter.updateIngredients(progress + 1)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
 
     private fun getDrawableFromAssets(

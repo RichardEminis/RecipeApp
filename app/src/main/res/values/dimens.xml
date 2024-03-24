@@ -9,5 +9,7 @@
     <dimen name="text_category_size">20sp</dimen>
     <dimen name="recipe_list_height">256dp</dimen>
     <dimen name="image_recipe_height">130dp</dimen>
-
+    <dimen name="recipe_card_name_width">242dp</dimen>
+    <dimen name="portion_indent">6dp</dimen>
+    <dimen name="ingredients_text_indent">12dp</dimen>
 </resources>

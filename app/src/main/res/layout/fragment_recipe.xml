@@ -1,16 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/recipeText"
-        style="@style/StyleCategory"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:text="Описание рецепта" />
+        android:fillViewport="true"
+        tools:ignore="ScrollViewCount">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recipe_list_height"
+                android:scaleType="centerCrop"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/burger" />
+
+            <TextView
+                android:id="@+id/recipeText"
+                style="@style/StyleCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/main_indent"
+                android:layout_marginBottom="@dimen/main_indent"
+                android:background="@drawable/shape_rounded_variants"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@+id/recipeImage"
+                app:layout_constraintEnd_toEndOf="@+id/recipeImage"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/recipeImage"
+                tools:text="Бургер с грибами и сыром" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/StyleCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginTop="@dimen/main_indent"
+                android:padding="0dp"
+                android:text="@string/text_ingredient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipeImage" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/RecipePortion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginTop="@dimen/portion_indent"
+                android:padding="0dp"
+                android:text="@string/text_portion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/portion_indent"
+                android:layout_marginTop="@dimen/portion_indent"
+                android:layout_marginEnd="@dimen/portion_indent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                style="@style/IngredientsTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/main_indent"
+                android:layout_marginTop="@dimen/main_indent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_ingredients" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/StyleCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_indent"
+                android:layout_marginTop="@dimen/main_indent"
+                android:padding="0dp"
+                android:text="@string/text_method"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvIngredients" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMethod"
+                style="@style/IngredientsTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/main_indent"
+                android:layout_marginTop="@dimen/main_indent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_method" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_indent"
+                android:layout_marginEnd="@dimen/main_indent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_like" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

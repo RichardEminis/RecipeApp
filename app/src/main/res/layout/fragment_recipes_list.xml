@@ -13,11 +13,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/recipe_list_image"
+            android:id="@+id/recipeListImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipe_list_height"
             android:scaleType="centerCrop"
-            android:src="@drawable/burger"
+            tools:src="@drawable/burger"
             android:verticalScrollbarPosition="defaultPosition"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/recipe_name"
+            android:id="@+id/recipeListText"
             style="@style/StyleCategory"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

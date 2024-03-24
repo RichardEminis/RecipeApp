@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvIngredients"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/ingredients_text_indent"
+    android:layout_marginTop="@dimen/ingredients_text_indent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvIngredientsDescription"
+            style="@style/IngredientsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ингредиент" />
+
+        <TextView
+            android:id="@+id/tvIngredientsQuantity"
+            style="@style/IngredientsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/main_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvIngredientsUnitOfMeasure"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="mesure" />
+
+        <TextView
+            android:id="@+id/tvIngredientsUnitOfMeasure"
+            style="@style/IngredientsTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="количество" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+</LinearLayout>

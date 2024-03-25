@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,8 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
+
+    private lateinit var btnFavorite: ImageButton
 
     private var recipeId: Int = 0
 
@@ -40,6 +43,7 @@ class RecipeFragment : Fragment() {
         initRecycler()
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initUI() {
         val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
@@ -56,6 +60,23 @@ class RecipeFragment : Fragment() {
 
         if (recipe != null) {
             binding.recipeText.text = recipe.title
+        }
+
+        btnFavorite = binding.btnFavorite
+
+        btnFavorite.setImageResource(R.drawable.ic_heart_empty)
+
+        btnFavorite.setOnClickListener {
+            val currentImage = btnFavorite.drawable
+            if (currentImage.constantState == resources.getDrawable(
+                    R.drawable.ic_heart_empty,
+                    null
+                ).constantState
+            ) {
+                btnFavorite.setImageResource(R.drawable.ic_heart)
+            } else {
+                btnFavorite.setImageResource(R.drawable.ic_heart_empty)
+            }
         }
     }
 

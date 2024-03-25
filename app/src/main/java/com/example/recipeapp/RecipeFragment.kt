@@ -19,11 +19,11 @@ import java.io.InputStream
 
 class RecipeFragment : Fragment() {
 
-    private var recipeId: Int = 0
-
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
+
+    private var recipeId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

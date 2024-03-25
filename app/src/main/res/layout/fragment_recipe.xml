@@ -81,11 +81,10 @@
 
             <SeekBar
                 android:id="@+id/seekBar"
+                style="@style/styleSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="@dimen/portion_indent"
                 android:layout_marginTop="@dimen/portion_indent"
-                android:layout_marginEnd="@dimen/portion_indent"
                 android:max="5"
                 android:min="1"
                 android:progress="1"

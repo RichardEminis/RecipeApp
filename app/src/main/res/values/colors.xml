@@ -9,5 +9,6 @@
     <color name="card_text_opacity">#99000000</color>
     <color name="portion_color">#626466</color>
     <color name="ingredients_text_color">#666666</color>
-
+    <color name="seekbar_progress_color">#A1A9F9</color>
+    <color name="seekbar_thumb_color">#525DC0</color>
 </resources>

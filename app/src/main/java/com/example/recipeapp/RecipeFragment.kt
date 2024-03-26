@@ -62,7 +62,7 @@ class RecipeFragment : Fragment() {
             binding.recipeText.text = recipe.title
         }
 
-        btnFavorite = binding.btnFavorite
+        btnFavorite = binding.ibFavorite
 
         btnFavorite.setImageResource(R.drawable.ic_heart_empty)
 

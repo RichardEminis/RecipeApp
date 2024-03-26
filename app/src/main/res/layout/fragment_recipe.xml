@@ -130,7 +130,7 @@
                 tools:listitem="@layout/item_method" />
 
             <ImageButton
-                android:id="@+id/btnFavorite"
+                android:id="@+id/ibFavorite"
                 android:layout_width="@dimen/heart_width"
                 android:layout_height="@dimen/heart_height"
                 android:scaleType="fitXY"
@@ -140,8 +140,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@null"
                 tools:src="@drawable/ic_heart"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"/>
+                style="@style/RippleEffect"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

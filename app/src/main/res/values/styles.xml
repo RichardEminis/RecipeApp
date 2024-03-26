@@ -67,4 +67,9 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="RippleEffect" parent="TextAppearance.AppCompat">
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
 </resources>

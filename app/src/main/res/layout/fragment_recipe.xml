@@ -131,8 +131,8 @@
 
             <ImageButton
                 android:id="@+id/ibFavorite"
-                android:layout_width="@dimen/heart_width"
-                android:layout_height="@dimen/heart_height"
+                android:layout_width="@dimen/heart_size"
+                android:layout_height="@dimen/heart_size"
                 android:scaleType="fitXY"
                 android:layout_marginTop="@dimen/main_indent"
                 android:layout_marginEnd="@dimen/main_indent"

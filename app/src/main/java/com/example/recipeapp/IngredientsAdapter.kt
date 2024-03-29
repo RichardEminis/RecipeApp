@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemIngredientsBinding
 import model.Ingredient
 import model.Recipe
+import java.math.BigDecimal
 
 class IngredientsAdapter(
     private val dataSet: Recipe,
-    private var quantity: Int = 1,
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+
+    private var quantity: Int = 1
 
     class ViewHolder(private val binding: ItemIngredientsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,11 +33,11 @@ class IngredientsAdapter(
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ingredient = dataSet.listOfIngredients[position]
-        val multipliedQuantity = ingredient.quantity.toDouble() * quantity
-        val displayQuantity = if (multipliedQuantity % 1 == 0.0) {
+        val multipliedQuantity = BigDecimal(ingredient.quantity).multiply(BigDecimal(quantity))
+        val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
         } else {
-            String.format("%.1f", multipliedQuantity)
+            multipliedQuantity.setScale(1).toString()
         }
         holder.bind(ingredient, displayQuantity)
     }

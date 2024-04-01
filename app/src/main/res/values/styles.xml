@@ -67,6 +67,11 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="RippleEffect" parent="TextAppearance.AppCompat">
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
     <style name="styleSeekBar" parent="Widget.AppCompat.SeekBar">
         <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
         <item name="android:progressDrawable">@drawable/shape_seekbar_progress</item>

@@ -129,15 +129,18 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_method" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/ibFavorite"
+                android:layout_width="@dimen/heart_size"
+                android:layout_height="@dimen/heart_size"
+                android:scaleType="fitXY"
                 android:layout_marginTop="@dimen/main_indent"
                 android:layout_marginEnd="@dimen/main_indent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_like" />
+                android:background="@null"
+                tools:src="@drawable/ic_heart"
+                style="@style/RippleEffect"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

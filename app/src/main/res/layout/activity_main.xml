@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/favorites_button_color"
             android:text="@string/text_favorite_button"
-            app:icon="@drawable/ic_heart"
+            app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
             tools:visibility="visible" />
 

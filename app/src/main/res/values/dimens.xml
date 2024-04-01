@@ -12,6 +12,7 @@
     <dimen name="recipe_card_name_width">242dp</dimen>
     <dimen name="portion_indent">6dp</dimen>
     <dimen name="ingredients_text_indent">12dp</dimen>
+    <dimen name="heart_size">40dp</dimen>
     <dimen name="seekbar_progress_radius">4dp</dimen>
     <dimen name="seekbar_thumb_height">30dp</dimen>
 </resources>

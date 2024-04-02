@@ -64,8 +64,6 @@ class RecipeFragment : Fragment() {
 
         btnFavorite = binding.ibFavorite
 
-        btnFavorite.setImageResource(R.drawable.ic_heart_empty)
-
         val favoritesSet = getFavorites()
         val isFavorite = favoritesSet?.contains(recipeId.toString())
 

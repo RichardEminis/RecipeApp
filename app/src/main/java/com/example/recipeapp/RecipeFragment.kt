@@ -65,16 +65,15 @@ class RecipeFragment : Fragment() {
         btnFavorite = binding.ibFavorite
 
         val favoritesSet = getFavorites()
-        val isFavorite = favoritesSet?.contains(recipeId.toString())
 
-        if (isFavorite == true) {
+        if (favoritesSet?.contains(recipeId.toString()) == true) {
             binding.ibFavorite.setImageResource(R.drawable.ic_heart)
         } else {
             binding.ibFavorite.setImageResource(R.drawable.ic_heart_empty)
         }
 
         btnFavorite.setOnClickListener {
-            if (isFavorite == true) {
+            if (favoritesSet?.contains(recipeId.toString()) == true) {
                 favoritesSet.remove(recipeId.toString())
                 btnFavorite.setImageResource(R.drawable.ic_heart_empty)
             } else {

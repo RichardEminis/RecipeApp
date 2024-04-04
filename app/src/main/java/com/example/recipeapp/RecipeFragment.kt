@@ -64,18 +64,24 @@ class RecipeFragment : Fragment() {
 
         btnFavorite = binding.ibFavorite
 
-        btnFavorite.setImageResource(R.drawable.ic_heart_empty)
+        val favoritesSet = getFavorites()
+
+        if (favoritesSet?.contains(recipeId.toString()) == true) {
+            binding.ibFavorite.setImageResource(R.drawable.ic_heart)
+        } else {
+            binding.ibFavorite.setImageResource(R.drawable.ic_heart_empty)
+        }
 
         btnFavorite.setOnClickListener {
-            val currentImage = btnFavorite.drawable
-            if (currentImage.constantState == resources.getDrawable(
-                    R.drawable.ic_heart_empty,
-                    null
-                ).constantState
-            ) {
-                btnFavorite.setImageResource(R.drawable.ic_heart)
-            } else {
+            if (favoritesSet?.contains(recipeId.toString()) == true) {
+                favoritesSet.remove(recipeId.toString())
                 btnFavorite.setImageResource(R.drawable.ic_heart_empty)
+            } else {
+                favoritesSet?.add(recipeId.toString())
+                btnFavorite.setImageResource(R.drawable.ic_heart)
+            }
+            if (favoritesSet != null) {
+                saveFavorites(favoritesSet)
             }
         }
     }
@@ -122,5 +128,21 @@ class RecipeFragment : Fragment() {
             Log.e("mylog", "Error: $exception")
             null
         }
+    }
+
+    private fun saveFavorites(favoritesSet: Set<String>) {
+        val sharedPrefs = requireActivity().getSharedPreferences(
+            "FavoritesSharedPreferences", Context.MODE_PRIVATE
+        )
+        val editor = sharedPrefs.edit()
+        editor.putStringSet("favoriteRecipes", favoritesSet)
+        editor.apply()
+    }
+
+    private fun getFavorites(): MutableSet<String>? {
+        val sharedPrefs = requireActivity().getSharedPreferences(
+            "FavoritesSharedPreferences", Context.MODE_PRIVATE
+        )
+        return sharedPrefs.getStringSet("favoriteRecipes", HashSet())?.toMutableSet()
     }
 }

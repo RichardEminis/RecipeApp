@@ -36,18 +36,25 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initRecycler() {
-
         val favoritesSet = getFavorites() ?: HashSet()
         val adapter =
             RecipeListAdapter(STUB.getRecipesByIds(favoritesSet.map { it.toInt() }.toSet()))
         recyclerView = binding.rvFavorites
-        recyclerView?.adapter = adapter
 
-        adapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
-            override fun onItemClick(recipeId: Int) {
-                openRecipesByCategoryId(recipeId)
-            }
-        })
+        if (favoritesSet.isEmpty()) {
+            binding.emptyFavorites.visibility = View.VISIBLE
+            recyclerView?.visibility = View.GONE
+        } else {
+            binding.emptyFavorites.visibility = View.GONE
+            recyclerView?.visibility = View.VISIBLE
+            recyclerView?.adapter = adapter
+
+            adapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+                override fun onItemClick(recipeId: Int) {
+                    openRecipesByCategoryId(recipeId)
+                }
+            })
+        }
     }
 
     private fun openRecipesByCategoryId(recipeId: Int) {

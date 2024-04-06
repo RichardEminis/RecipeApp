@@ -6,5 +6,6 @@
     <string name="text_ingredient">"ингредиенты"</string>
     <string name="text_portion">"Порции:"</string>
     <string name="text_method">"способ приготовления"</string>
-
+    <string name="empty_favorites">Вы еще не добавили ни одного рецепта в избранное</string>
+    <string name="favorite_image_description">изображение для избранных рецептов</string>
 </resources>

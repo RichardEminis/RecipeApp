@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package ui.recipe.recipe
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,8 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
 import model.Recipe

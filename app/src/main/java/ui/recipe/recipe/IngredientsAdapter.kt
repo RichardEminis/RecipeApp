@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package ui.recipe.recipe
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

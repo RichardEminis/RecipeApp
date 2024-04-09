@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package ui.recipe.recipeList
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
 import model.Recipe
 import java.io.InputStream
@@ -50,7 +51,7 @@ class RecipeListAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): RecipeListAdapter.ViewHolder {
+    ): ViewHolder {
         val inflater =
             LayoutInflater.from(parent.context).inflate(R.layout.item_recipe, parent, false)
         return ViewHolder(inflater)

@@ -10,4 +10,4 @@ data class Recipe(
     val listOfIngredients: List<Ingredient>,
     val method: List<String>,
     val imageUrl: String,
-): Parcelable
+) : Parcelable

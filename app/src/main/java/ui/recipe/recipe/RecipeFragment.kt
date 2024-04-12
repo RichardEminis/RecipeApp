@@ -12,12 +12,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.ARG_RECIPE
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
 import model.Recipe
+import ui.recipe.RecipeViewModel
 import java.io.InputStream
 
 class RecipeFragment : Fragment() {
@@ -25,6 +28,8 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
+
+    private val viewModel: RecipeViewModel by viewModels()
 
     private lateinit var btnFavorite: ImageButton
 
@@ -39,6 +44,10 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.recipeUiState.observe(viewLifecycleOwner, Observer { item ->
+            Log.i("!!!", "Is favorite: ${item.isFavorite}")
+        })
 
         initUI()
 

@@ -16,6 +16,7 @@ import com.example.recipeapp.ARG_CATEGORY_ID
 import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
@@ -66,9 +67,7 @@ class RecipesListFragment : Fragment() {
 
     private fun openRecipeByRecipeId(recipeId: Int) {
 
-        val recipe = STUB.getRecipeById(recipeId)
-
-        val bundle = bundleOf(ARG_RECIPE to recipe)
+        val bundle = bundleOf(ARG_RECIPE_ID to recipeId)
 
         parentFragmentManager.commit {
             setReorderingAllowed(true)

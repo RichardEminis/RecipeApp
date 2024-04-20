@@ -50,4 +50,30 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     private fun getFavorites(): MutableSet<String>? {
         return sharedPreferences.getStringSet("favoriteRecipes", HashSet())?.toMutableSet()
     }
+
+    fun onFavoritesClicked(recipeId: Int) {
+        val currentState = _recipeUiState.value ?: return
+        val favorites = getFavorites()
+
+
+        val newIsFavorite = if (currentState.isFavorite) {
+            favorites?.remove(recipeId.toString())
+            false
+        } else {
+            favorites?.add(recipeId.toString())
+            true
+        }
+
+        val newState = currentState.copy(isFavorite = newIsFavorite)
+
+        _recipeUiState.value = newState
+
+        favorites?.let { saveFavorites(it) }
+    }
+
+    private fun saveFavorites(favoritesSet: Set<String>) {
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("favoriteRecipes", favoritesSet)
+        editor.apply()
+    }
 }

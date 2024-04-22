@@ -2,17 +2,21 @@ package ui.recipe
 
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.KEY_FAVORITES
 import data.STUB
 import model.Recipe
+import java.io.InputStream
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
     var portionsCount: Int = 1,
     var isFavorite: Boolean = false,
+    var recipeImage: Drawable? = null,
 )
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,58 +26,55 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     private val sharedPreferences =
         application.getSharedPreferences("FavoritesSharedPreferences", Context.MODE_PRIVATE)
 
-    init {
-        Log.i("!!!", "Initializing RecipeViewModel")
-        _recipeUiState.value = RecipeUiState(
-            isFavorite = false,
-            portionsCount = 1
-        )
-    }
-
-    fun loadRecipe(recipeId: Int) {
+    fun loadRecipe(recipeId: Int, context: Context) {
         val favorites = getFavorites()
         val currentState = _recipeUiState.value
 
-        val newState = currentState?.let {
-            RecipeUiState(
+        val drawableRecipeImage: Drawable? = try {
+            val inputStream: InputStream? =
+                context.assets?.open(STUB.getRecipeById(recipeId).imageUrl)
+            Drawable.createFromStream(inputStream, null)
+        } catch (exception: Exception) {
+            Log.e("mylog", "Error: $exception")
+            null
+        }
+
+        if (currentState != null) {
+            val newState = currentState.copy(
                 recipe = STUB.getRecipeById(recipeId),
-                portionsCount = it.portionsCount,
-                isFavorite = favorites?.contains(recipeId.toString()) ?: false
+                isFavorite = favorites?.contains(recipeId.toString()) ?: false,
+                recipeImage = drawableRecipeImage
             )
+            _recipeUiState.value = newState
         }
 
         //TODO: load from network
-
-        _recipeUiState.value = RecipeUiState(recipe = STUB.getRecipeById(recipeId))
     }
 
     private fun getFavorites(): MutableSet<String>? {
-        return sharedPreferences.getStringSet("favoriteRecipes", HashSet())?.toMutableSet()
+        return sharedPreferences.getStringSet(KEY_FAVORITES, HashSet())?.toMutableSet()
     }
 
-    fun onFavoritesClicked(recipeId: Int) {
-        val currentState = _recipeUiState.value ?: return
+    fun onFavoritesClicked() {
+        val recipeId = _recipeUiState.value?.recipe?.id.toString()
         val favorites = getFavorites()
 
-
-        val newIsFavorite = if (currentState.isFavorite) {
-            favorites?.remove(recipeId.toString())
-            false
-        } else {
-            favorites?.add(recipeId.toString())
-            true
+        if (favorites != null) {
+            if (favorites.contains(recipeId)) {
+                favorites.remove(recipeId)
+                _recipeUiState.value = _recipeUiState.value?.copy(isFavorite = false)
+            } else {
+                favorites.add(recipeId)
+                _recipeUiState.value = _recipeUiState.value?.copy(isFavorite = true)
+            }
         }
-
-        val newState = currentState.copy(isFavorite = newIsFavorite)
-
-        _recipeUiState.value = newState
 
         favorites?.let { saveFavorites(it) }
     }
 
     private fun saveFavorites(favoritesSet: Set<String>) {
         val editor = sharedPreferences.edit()
-        editor.putStringSet("favoriteRecipes", favoritesSet)
+        editor.putStringSet(KEY_FAVORITES, favoritesSet)
         editor.apply()
     }
 }

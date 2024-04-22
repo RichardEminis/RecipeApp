@@ -1,15 +1,12 @@
 package ui.recipe.recipe
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +17,6 @@ import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
 import model.Recipe
 import ui.recipe.RecipeViewModel
-import java.io.InputStream
 
 class RecipeFragment : Fragment() {
 
@@ -29,8 +25,6 @@ class RecipeFragment : Fragment() {
     }
 
     private val viewModel: RecipeViewModel by viewModels()
-
-    private lateinit var btnFavorite: ImageButton
 
     private var recipeId: Int = 0
 
@@ -43,6 +37,19 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
+        } else {
+            arguments?.getParcelable(ARG_RECIPE)
+        }
+
+        recipe?.let {
+            recipeId = it.id
+            binding.recipeText.text = it.title
+        }
+
+        viewModel.loadRecipe(recipeId, requireContext())
 
         initUI()
 
@@ -63,23 +70,10 @@ class RecipeFragment : Fragment() {
             }
         }
 
-        val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
-        } else {
-            arguments?.getParcelable(ARG_RECIPE)
-        }
-
-        recipe?.let {
-            recipeId = it.id
-            val drawable = getDrawableFromAssets(it.imageUrl, requireContext())
-            binding.recipeImage.setImageDrawable(drawable)
-            binding.recipeText.text = it.title
-        }
-
-        btnFavorite = binding.ibFavorite
+        val btnFavorite = binding.ibFavorite
 
         btnFavorite.setOnClickListener {
-            viewModel.onFavoritesClicked(recipeId)
+            viewModel.onFavoritesClicked()
         }
     }
 
@@ -112,18 +106,5 @@ class RecipeFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-    }
-
-    private fun getDrawableFromAssets(
-        imageUrl: String,
-        context: Context
-    ): Drawable? {
-        return try {
-            val inputStream: InputStream? = context.assets?.open(imageUrl)
-            Drawable.createFromStream(inputStream, null)
-        } catch (exception: Exception) {
-            Log.e("mylog", "Error: $exception")
-            null
-        }
     }
 }

@@ -1,7 +1,6 @@
 package ui.recipe.recipe
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,21 +10,18 @@ import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import data.STUB
-import model.Recipe
 import ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
-
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
 
     private val viewModel: RecipeViewModel by viewModels()
-
     private var recipeId: Int = 0
 
     override fun onCreateView(
@@ -37,17 +33,7 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(ARG_RECIPE, Recipe::class.java)
-        } else {
-            arguments?.getParcelable(ARG_RECIPE)
-        }
-
-        recipe?.let {
-            recipeId = it.id
-            binding.recipeText.text = it.title
-        }
+        recipeId = arguments?.getInt(ARG_RECIPE_ID) ?: 0
 
         viewModel.loadRecipe(recipeId, requireContext())
 
@@ -67,9 +53,14 @@ class RecipeFragment : Fragment() {
                 } else {
                     binding.ibFavorite.setImageResource(R.drawable.ic_heart_empty)
                 }
+
+                item.recipeImage?.let { drawable ->
+                    binding.recipeImage.setImageDrawable(drawable)
+                }
+
+                binding.recipeText.text = item.recipe?.title
             }
         }
-
         val btnFavorite = binding.ibFavorite
 
         btnFavorite.setOnClickListener {

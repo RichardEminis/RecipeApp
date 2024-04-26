@@ -39,14 +39,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             null
         }
 
-        if (currentState != null) {
-            val newState = currentState.copy(
-                recipe = STUB.getRecipeById(recipeId),
-                isFavorite = favorites?.contains(recipeId.toString()) ?: false,
-                recipeImage = drawableRecipeImage
-            )
-            _recipeUiState.value = newState
-        }
+        val newState = currentState?.copy(
+            recipe = STUB.getRecipeById(recipeId),
+            isFavorite = favorites?.contains(recipeId.toString()) ?: false,
+            recipeImage = drawableRecipeImage
+        ) ?: RecipeUiState(
+            recipe = STUB.getRecipeById(recipeId),
+            isFavorite = favorites?.contains(recipeId.toString()) ?: false,
+            recipeImage = drawableRecipeImage
+        )
+
+        _recipeUiState.value = newState
 
         //TODO: load from network
     }

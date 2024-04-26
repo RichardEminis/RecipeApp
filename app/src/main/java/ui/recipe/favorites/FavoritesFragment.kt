@@ -2,23 +2,22 @@ package ui.recipe.favorites
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
-import ui.recipe.recipe.RecipeFragment
-import ui.recipe.recipeList.RecipeListAdapter
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 import data.STUB
+import ui.recipe.recipe.RecipeFragment
+import ui.recipe.recipeList.RecipeListAdapter
 
 class FavoritesFragment : Fragment() {
-
     private var recyclerView: RecyclerView? = null
 
     private val binding: FragmentFavoritesBinding by lazy {
@@ -61,10 +60,8 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(recipeId: Int) {
-
         val recipe = STUB.getRecipeById(recipeId)
-
-        val bundle = bundleOf(ARG_RECIPE to recipe)
+        val bundle = bundleOf(ARG_RECIPE_ID to recipe)
 
         parentFragmentManager.commit {
             setReorderingAllowed(true)

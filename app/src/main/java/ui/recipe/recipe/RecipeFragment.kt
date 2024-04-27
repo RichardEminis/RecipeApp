@@ -69,7 +69,8 @@ class RecipeFragment : Fragment() {
                 binding.rvMethod.layoutManager = linearLayoutManagerMethod
                 binding.rvMethod.adapter = methodAdapter
 
-                binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                binding.seekBar.setOnSeekBarChangeListener(object :
+                    SeekBar.OnSeekBarChangeListener {
                     @SuppressLint("SetTextI18n")
                     override fun onProgressChanged(
                         seekBar: SeekBar,
@@ -77,14 +78,11 @@ class RecipeFragment : Fragment() {
                         fromUser: Boolean
                     ) {
                         binding.portionsValue.text = progress.toString()
-                        ingredientsAdapter.updateIngredients(progress)
+                        viewModel.updatePortionsCount(progress)
                     }
 
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    }
-
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
                 })
             }
         }

@@ -38,8 +38,6 @@ class RecipeFragment : Fragment() {
         viewModel.loadRecipe(recipeId, requireContext())
 
         initUI()
-
-        initRecycler()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -59,6 +57,35 @@ class RecipeFragment : Fragment() {
                 }
 
                 binding.recipeText.text = item.recipe?.title
+
+                val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
+                val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+
+                val linearLayoutManagerIngredients = LinearLayoutManager(context)
+                binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
+                binding.rvIngredients.adapter = ingredientsAdapter
+
+                val linearLayoutManagerMethod = LinearLayoutManager(context)
+                binding.rvMethod.layoutManager = linearLayoutManagerMethod
+                binding.rvMethod.adapter = methodAdapter
+
+                binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    @SuppressLint("SetTextI18n")
+                    override fun onProgressChanged(
+                        seekBar: SeekBar,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        binding.portionsValue.text = progress.toString()
+                        ingredientsAdapter.updateIngredients(progress)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+                })
             }
         }
         val btnFavorite = binding.ibFavorite
@@ -66,36 +93,5 @@ class RecipeFragment : Fragment() {
         btnFavorite.setOnClickListener {
             viewModel.onFavoritesClicked()
         }
-    }
-
-    private fun initRecycler() {
-        val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
-        val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
-
-        val linearLayoutManagerIngredients = LinearLayoutManager(context)
-        binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
-        binding.rvIngredients.adapter = ingredientsAdapter
-
-        val linearLayoutManagerMethod = LinearLayoutManager(context)
-        binding.rvMethod.layoutManager = linearLayoutManagerMethod
-        binding.rvMethod.adapter = methodAdapter
-
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            @SuppressLint("SetTextI18n")
-            override fun onProgressChanged(
-                seekBar: SeekBar,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                binding.portionsValue.text = progress.toString()
-                ingredientsAdapter.updateIngredients(progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
     }
 }

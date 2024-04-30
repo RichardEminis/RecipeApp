@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import data.STUB
 import ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -58,8 +57,8 @@ class RecipeFragment : Fragment() {
 
                 binding.recipeText.text = item.recipe?.title
 
-                val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
-                val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+                val ingredientsAdapter = item.recipe?.let { IngredientsAdapter(it, item.portionsCount) }
+                val methodAdapter = item.recipe?.let { MethodAdapter(it) }
 
                 val linearLayoutManagerIngredients = LinearLayoutManager(context)
                 binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
@@ -75,10 +74,11 @@ class RecipeFragment : Fragment() {
                     override fun onProgressChanged(
                         seekBar: SeekBar,
                         progress: Int,
-                        fromUser: Boolean
+                        fromUser: Boolean,
                     ) {
                         binding.portionsValue.text = progress.toString()
                         viewModel.updatePortionsCount(progress)
+                        ingredientsAdapter?.updatePortionsCount(progress)
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {}

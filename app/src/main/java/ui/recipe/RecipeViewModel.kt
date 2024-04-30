@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.KEY_FAVORITES
 import data.STUB
 import model.Recipe
@@ -24,7 +25,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     val recipeUiState: LiveData<RecipeUiState>
         get() = _recipeUiState
     private val sharedPreferences =
-        application.getSharedPreferences("FavoritesSharedPreferences", Context.MODE_PRIVATE)
+        application.getSharedPreferences(FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
     fun loadRecipe(recipeId: Int, context: Context) {
         val favorites = getFavorites()

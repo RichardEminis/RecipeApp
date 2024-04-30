@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import data.STUB
 import ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -38,8 +37,6 @@ class RecipeFragment : Fragment() {
         viewModel.loadRecipe(recipeId, requireContext())
 
         initUI()
-
-        initRecycler()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -59,6 +56,34 @@ class RecipeFragment : Fragment() {
                 }
 
                 binding.recipeText.text = item.recipe?.title
+
+                val ingredientsAdapter = item.recipe?.let { IngredientsAdapter(it, item.portionsCount) }
+                val methodAdapter = item.recipe?.let { MethodAdapter(it) }
+
+                val linearLayoutManagerIngredients = LinearLayoutManager(context)
+                binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
+                binding.rvIngredients.adapter = ingredientsAdapter
+
+                val linearLayoutManagerMethod = LinearLayoutManager(context)
+                binding.rvMethod.layoutManager = linearLayoutManagerMethod
+                binding.rvMethod.adapter = methodAdapter
+
+                binding.seekBar.setOnSeekBarChangeListener(object :
+                    SeekBar.OnSeekBarChangeListener {
+                    @SuppressLint("SetTextI18n")
+                    override fun onProgressChanged(
+                        seekBar: SeekBar,
+                        progress: Int,
+                        fromUser: Boolean,
+                    ) {
+                        binding.portionsValue.text = progress.toString()
+                        viewModel.updatePortionsCount(progress)
+                        ingredientsAdapter?.updatePortionsCount(progress)
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                })
             }
         }
         val btnFavorite = binding.ibFavorite
@@ -66,36 +91,5 @@ class RecipeFragment : Fragment() {
         btnFavorite.setOnClickListener {
             viewModel.onFavoritesClicked()
         }
-    }
-
-    private fun initRecycler() {
-        val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
-        val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
-
-        val linearLayoutManagerIngredients = LinearLayoutManager(context)
-        binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
-        binding.rvIngredients.adapter = ingredientsAdapter
-
-        val linearLayoutManagerMethod = LinearLayoutManager(context)
-        binding.rvMethod.layoutManager = linearLayoutManagerMethod
-        binding.rvMethod.adapter = methodAdapter
-
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            @SuppressLint("SetTextI18n")
-            override fun onProgressChanged(
-                seekBar: SeekBar,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                binding.portionsValue.text = progress.toString()
-                ingredientsAdapter.updateIngredients(progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
     }
 }

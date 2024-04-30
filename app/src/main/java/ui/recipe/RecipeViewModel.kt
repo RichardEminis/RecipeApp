@@ -84,8 +84,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun updatePortionsCount(portionsCount: Int) {
         _recipeUiState.value?.let { currentState ->
-            val updatedState = currentState.copy(portionsCount = portionsCount)
-            _recipeUiState.value = updatedState
+            _recipeUiState.value = currentState.copy(portionsCount = portionsCount)
         }
     }
 }

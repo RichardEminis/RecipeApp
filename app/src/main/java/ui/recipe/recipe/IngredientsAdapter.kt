@@ -10,7 +10,7 @@ import model.Recipe
 import java.math.BigDecimal
 
 class IngredientsAdapter(
-    private val dataSet: Recipe,
+    private var dataSet: Recipe,
     private var portionsCount: Int = 1,
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 

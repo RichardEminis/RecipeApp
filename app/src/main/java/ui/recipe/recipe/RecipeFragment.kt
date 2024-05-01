@@ -24,6 +24,9 @@ class RecipeFragment : Fragment() {
     private val viewModel: RecipeViewModel by viewModels()
     private var recipeId: Int = 0
 
+    private val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
+    private val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,9 +61,12 @@ class RecipeFragment : Fragment() {
 
                 binding.recipeText.text = item.recipe?.title
 
-                val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
-                val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
-                item.recipe?.let { ingredientsAdapter.ingredientsUpdateDataSet(it, item.portionsCount) }
+                item.recipe?.let {
+                    ingredientsAdapter.ingredientsUpdateDataSet(
+                        it,
+                        item.portionsCount
+                    )
+                }
                 item.recipe?.let { methodAdapter.methodUpdateDataSet(it) }
 
                 val linearLayoutManagerIngredients = LinearLayoutManager(context)

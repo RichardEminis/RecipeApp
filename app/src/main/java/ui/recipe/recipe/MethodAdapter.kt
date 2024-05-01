@@ -32,4 +32,10 @@ class MethodAdapter(
     override fun getItemCount(): Int {
         return dataSet.method.size
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun methodUpdateDataSet(newDataSet: Recipe) {
+        this.dataSet = newDataSet
+        notifyDataSetChanged()
+    }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
+import data.STUB
 import ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -57,9 +58,10 @@ class RecipeFragment : Fragment() {
 
                 binding.recipeText.text = item.recipe?.title
 
-                val ingredientsAdapter =
-                    item.recipe?.let { IngredientsAdapter(it, item.portionsCount) }
-                val methodAdapter = item.recipe?.let { MethodAdapter(it) }
+                val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
+                val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+                item.recipe?.let { ingredientsAdapter.ingredientsUpdateDataSet(it, item.portionsCount) }
+                item.recipe?.let { methodAdapter.methodUpdateDataSet(it) }
 
                 val linearLayoutManagerIngredients = LinearLayoutManager(context)
                 binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
@@ -72,7 +74,7 @@ class RecipeFragment : Fragment() {
                 val seekBarListener = PortionSeekBarListener { progress ->
                     binding.portionsValue.text = progress.toString()
                     viewModel.updatePortionsCount(progress)
-                    ingredientsAdapter?.updatePortionsCount(progress)
+                    item.recipe?.let { ingredientsAdapter.ingredientsUpdateDataSet(it, progress) }
                 }
 
                 binding.seekBar.setOnSeekBarChangeListener(seekBarListener)

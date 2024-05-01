@@ -10,9 +10,10 @@ import model.Recipe
 import java.math.BigDecimal
 
 class IngredientsAdapter(
-    private val dataSet: Recipe,
-    private var portionsCount: Int,
+    private var dataSet: Recipe
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+
+    private var portionsCount: Int = 1
 
     class ViewHolder(private val binding: ItemIngredientsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,8 +47,9 @@ class IngredientsAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updatePortionsCount(portions: Int) {
-        portionsCount = portions
+    fun ingredientsUpdateDataSet(newDataSet: Recipe, portionsCount: Int) {
+        this.dataSet = newDataSet
+        this.portionsCount = portionsCount
         notifyDataSetChanged()
     }
 }

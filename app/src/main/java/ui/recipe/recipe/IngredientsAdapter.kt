@@ -10,7 +10,7 @@ import model.Recipe
 import java.math.BigDecimal
 
 class IngredientsAdapter(
-    private var dataSet: Recipe
+    private var dataSet: Recipe? = null
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     private var portionsCount: Int = 1
@@ -32,18 +32,20 @@ class IngredientsAdapter(
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ingredient = dataSet.listOfIngredients[position]
-        val multipliedQuantity = BigDecimal(ingredient.quantity).multiply(BigDecimal(portionsCount))
+        val ingredient = dataSet?.listOfIngredients?.get(position)
+        val multipliedQuantity = BigDecimal(ingredient?.quantity).multiply(BigDecimal(portionsCount))
         val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
         } else {
             multipliedQuantity.setScale(1).toString()
         }
-        holder.bind(ingredient, displayQuantity)
+        if (ingredient != null) {
+            holder.bind(ingredient, displayQuantity)
+        }
     }
 
     override fun getItemCount(): Int {
-        return dataSet.listOfIngredients.size
+        return dataSet?.listOfIngredients?.size ?: 0
     }
 
     @SuppressLint("NotifyDataSetChanged")

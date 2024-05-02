@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import data.STUB
 import ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -24,8 +23,8 @@ class RecipeFragment : Fragment() {
     private val viewModel: RecipeViewModel by viewModels()
     private var recipeId: Int = 0
 
-    private val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId))
-    private val methodAdapter = MethodAdapter(STUB.getRecipeById(recipeId))
+    private val ingredientsAdapter = IngredientsAdapter()
+    private val methodAdapter = MethodAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

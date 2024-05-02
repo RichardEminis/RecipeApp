@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemIngredientsBinding
 import model.Ingredient
-import model.Recipe
 import java.math.BigDecimal
 
 class IngredientsAdapter(
-    private var dataSet: Recipe? = null
+    private var dataSet: List<Ingredient> = emptyList()
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     private var portionsCount: Int = 1
@@ -32,24 +31,22 @@ class IngredientsAdapter(
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ingredient = dataSet?.listOfIngredients?.get(position)
-        val multipliedQuantity = BigDecimal(ingredient?.quantity).multiply(BigDecimal(portionsCount))
+        val ingredient = dataSet[position]
+        val multipliedQuantity = BigDecimal(ingredient.quantity).multiply(BigDecimal(portionsCount))
         val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
         } else {
             multipliedQuantity.setScale(1).toString()
         }
-        if (ingredient != null) {
-            holder.bind(ingredient, displayQuantity)
-        }
+        holder.bind(ingredient, displayQuantity)
     }
 
     override fun getItemCount(): Int {
-        return dataSet?.listOfIngredients?.size ?: 0
+        return dataSet.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun ingredientsUpdateDataSet(newDataSet: Recipe, portionsCount: Int) {
+    fun ingredientsUpdateDataSet(newDataSet: List<Ingredient>, portionsCount: Int) {
         this.dataSet = newDataSet
         this.portionsCount = portionsCount
         notifyDataSetChanged()

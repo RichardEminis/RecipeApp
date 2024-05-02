@@ -60,13 +60,10 @@ class RecipeFragment : Fragment() {
 
                 binding.recipeText.text = item.recipe?.title
 
-                item.recipe?.let {
-                    ingredientsAdapter.ingredientsUpdateDataSet(
-                        it,
-                        item.portionsCount
-                    )
-                }
-                item.recipe?.let { methodAdapter.methodUpdateDataSet(it) }
+                ingredientsAdapter.ingredientsUpdateDataSet(
+                    item.recipe?.listOfIngredients ?: emptyList(), item.portionsCount
+                )
+                methodAdapter.methodUpdateDataSet(item.recipe?.method ?: emptyList())
 
                 val linearLayoutManagerIngredients = LinearLayoutManager(context)
                 binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
@@ -79,7 +76,9 @@ class RecipeFragment : Fragment() {
                 val seekBarListener = PortionSeekBarListener { progress ->
                     binding.portionsValue.text = progress.toString()
                     viewModel.updatePortionsCount(progress)
-                    item.recipe?.let { ingredientsAdapter.ingredientsUpdateDataSet(it, progress) }
+                    ingredientsAdapter.ingredientsUpdateDataSet(
+                        item.recipe?.listOfIngredients ?: emptyList(), progress
+                    )
                 }
 
                 binding.seekBar.setOnSeekBarChangeListener(seekBarListener)

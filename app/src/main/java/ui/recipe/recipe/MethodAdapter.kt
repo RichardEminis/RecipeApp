@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemMethodBinding
-import model.Recipe
 
 class MethodAdapter(
-    private var dataSet: Recipe? = null
+    private var dataSet: List<String> = emptyList()
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemMethodBinding) :
@@ -25,18 +24,16 @@ class MethodAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val method = dataSet?.method?.get(position)
-        if (method != null) {
-            holder.bind(method, position)
-        }
+        val method = dataSet[position]
+        holder.bind(method, position)
     }
 
     override fun getItemCount(): Int {
-        return dataSet?.method?.size ?: 0
+        return dataSet.size ?: 0
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun methodUpdateDataSet(newDataSet: Recipe) {
+    fun methodUpdateDataSet(newDataSet: List<String>) {
         this.dataSet = newDataSet
         notifyDataSetChanged()
     }

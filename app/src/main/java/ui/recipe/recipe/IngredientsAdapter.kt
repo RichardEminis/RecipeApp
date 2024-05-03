@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemIngredientsBinding
 import model.Ingredient
-import model.Recipe
 import java.math.BigDecimal
 
 class IngredientsAdapter(
-    private val dataSet: Recipe,
-    private var portionsCount: Int,
+    private var dataSet: List<Ingredient> = emptyList()
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+
+    private var portionsCount: Int = 1
 
     class ViewHolder(private val binding: ItemIngredientsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -31,7 +31,7 @@ class IngredientsAdapter(
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ingredient = dataSet.listOfIngredients[position]
+        val ingredient = dataSet[position]
         val multipliedQuantity = BigDecimal(ingredient.quantity).multiply(BigDecimal(portionsCount))
         val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
@@ -42,12 +42,13 @@ class IngredientsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dataSet.listOfIngredients.size
+        return dataSet.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updatePortionsCount(portions: Int) {
-        portionsCount = portions
+    fun ingredientsUpdateDataSet(newDataSet: List<Ingredient>, portionsCount: Int) {
+        this.dataSet = newDataSet
+        this.portionsCount = portionsCount
         notifyDataSetChanged()
     }
 }

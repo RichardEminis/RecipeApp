@@ -1,2 +1,43 @@
 package ui.recipe.favorites
 
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import data.STUB
+import model.Recipe
+
+data class FavoritesUiState(
+    var favoriteRecipes: List<Recipe> = emptyList()
+)
+
+class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val _favoritesUiState = MutableLiveData<FavoritesUiState>()
+    val favoritesUiState: LiveData<FavoritesUiState>
+        get() = _favoritesUiState
+
+    init {
+        loadFavorites()
+    }
+
+    private fun loadFavorites() {
+        val currentState = _favoritesUiState.value
+        val favoriteRecipes = getFavoriteRecipes()
+        _favoritesUiState.value = currentState?.copy(favoriteRecipes = favoriteRecipes)
+            ?: FavoritesUiState(favoriteRecipes = favoriteRecipes)
+    }
+
+    private fun getFavoriteRecipes(): List<Recipe> {
+        val favoritesSet = getFavorites() ?: emptySet()
+        return STUB.getRecipesByIds(favoritesSet.map { it.toInt() }.toSet())
+    }
+
+    private fun getFavorites(): Set<String>? {
+        val sharedPrefs = getApplication<Application>().getSharedPreferences(
+            "FavoritesSharedPreferences", Context.MODE_PRIVATE
+        )
+        return sharedPrefs.getStringSet("favoriteRecipes", emptySet())
+    }
+}

@@ -7,7 +7,6 @@ import data.STUB
 import model.Category
 
 class CategoriesListViewModel : ViewModel() {
-
     private val _categoriesList = MutableLiveData<List<Category>>()
     val categoriesList: LiveData<List<Category>>
         get() = _categoriesList

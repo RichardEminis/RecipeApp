@@ -1,5 +1,6 @@
 package ui.categories
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ class CategoriesListAdapter(
     private val dataSet: List<Category>, private val fragment: CategoriesListFragment,
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+
+    private var categories: List<Category> = emptyList()
 
     interface OnItemClickListener {
         fun onItemClick(categoryId: Int)
@@ -63,5 +66,11 @@ class CategoriesListAdapter(
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newList: List<Category>) {
+        categories = newList
+        notifyDataSetChanged()
     }
 }

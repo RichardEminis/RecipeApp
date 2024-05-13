@@ -43,7 +43,10 @@ class CategoriesListFragment : Fragment() {
 
         initRecycler()
 
+        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+
         viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
+            adapter.submitList(categories)
         }
     }
 

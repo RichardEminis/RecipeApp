@@ -4,28 +4,31 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.ARG_CATEGORY_ID
 import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
-import com.example.recipeapp.ARG_RECIPE
 import com.example.recipeapp.ARG_RECIPE_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
+import model.Recipe
 import ui.recipe.recipe.RecipeFragment
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
+
+    private val viewModel: RecipesListViewModel by viewModels()
 
     private var _binding: FragmentRecipesListBinding? = null
     private val binding
@@ -61,6 +64,14 @@ class RecipesListFragment : Fragment() {
 
         val drawable = categoryImageUrl?.let { getDrawableFromAssets(it, requireContext()) }
         binding.recipeListImage.setImageDrawable(drawable)
+
+        viewModel.loadRecipesByCategoryId(categoryId ?: 0)
+
+        viewModel.recipesUiState.observe(viewLifecycleOwner) { uiState ->
+            if (uiState != null) {
+                updateRecipesList(uiState.recipes)
+            }
+        }
 
         initRecycler()
     }
@@ -98,5 +109,16 @@ class RecipesListFragment : Fragment() {
             Log.e("mylog", "Error: $exception")
             null
         }
+    }
+
+    private fun updateRecipesList(recipes: List<Recipe>) {
+        val recipeListAdapter = RecipeListAdapter(recipes)
+        recyclerView?.adapter = recipeListAdapter
+
+        recipeListAdapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+            override fun onItemClick(recipeId: Int) {
+                openRecipeByRecipeId(recipeId)
+            }
+        })
     }
 }

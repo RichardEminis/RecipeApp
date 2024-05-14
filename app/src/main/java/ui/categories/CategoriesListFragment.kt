@@ -51,7 +51,7 @@ class CategoriesListFragment : Fragment() {
         )
         parentFragmentManager.commit {
             setReorderingAllowed(true)
-            add<RecipesListFragment>(R.id.mainContainer, args = bundle)
+            add<RecipesListFragment>(R.id.nav_host_fragment, args = bundle)
         }
     }
 

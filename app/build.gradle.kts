@@ -43,8 +43,11 @@ android {
 
 dependencies {
     val fragment_version = "1.6.2"
+    val nav_version = "2.7.7"
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

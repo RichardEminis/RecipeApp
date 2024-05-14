@@ -35,6 +35,8 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.loadFavorites()
+
         viewModel.favoritesUiState.observe(viewLifecycleOwner) { state ->
             initRecycler(state.favoriteRecipes)
         }

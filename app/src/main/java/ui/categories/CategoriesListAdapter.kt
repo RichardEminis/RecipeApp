@@ -69,8 +69,8 @@ class CategoriesListAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newList: List<Category>) {
-        categories = newList
+    fun submitList(newList: CategoriesListState) {
+        categories = newList.categories
         notifyDataSetChanged()
     }
 }

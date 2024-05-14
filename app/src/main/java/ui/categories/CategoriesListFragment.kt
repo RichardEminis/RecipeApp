@@ -45,6 +45,8 @@ class CategoriesListFragment : Fragment() {
 
         val adapter = CategoriesListAdapter(STUB.getCategories(), this)
 
+        viewModel.loadCategories()
+
         viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
             adapter.submitList(categories)
         }

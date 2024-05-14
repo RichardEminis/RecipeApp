@@ -5,17 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import data.STUB
 import model.Category
+import ui.recipe.RecipeUiState
+
+data class CategoriesListState(
+    val categories: List<Category> = emptyList()
+)
 
 class CategoriesListViewModel : ViewModel() {
-    private val _categoriesList = MutableLiveData<List<Category>>()
-    val categoriesList: LiveData<List<Category>>
+    private val _categoriesList = MutableLiveData<CategoriesListState>()
+    val categoriesList: LiveData<CategoriesListState>
         get() = _categoriesList
 
-    init {
-        loadCategories()
-    }
-
-    private fun loadCategories() {
-        _categoriesList.value = STUB.getCategories()
+    fun loadCategories() {
+        val categories = STUB.getCategories()
+        _categoriesList.value = CategoriesListState(categories = categories)
     }
 }

@@ -18,11 +18,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesUiState: LiveData<FavoritesUiState>
         get() = _favoritesUiState
 
-    init {
-        loadFavorites()
-    }
-
-    private fun loadFavorites() {
+    fun loadFavorites() {
         val currentState = _favoritesUiState.value
         val favoriteRecipes = getFavoriteRecipes()
         _favoritesUiState.value = currentState?.copy(favoriteRecipes = favoriteRecipes)

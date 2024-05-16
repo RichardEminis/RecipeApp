@@ -36,4 +36,11 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         )
         return sharedPrefs.getStringSet("favoriteRecipes", emptySet())
     }
+
+    fun getRecipeById(recipeId: Int): LiveData<Recipe?> {
+        val recipeLiveData = MutableLiveData<Recipe?>()
+        val recipe = favoritesUiState.value?.favoriteRecipes?.find { it.id == recipeId }
+        recipeLiveData.value = recipe
+        return recipeLiveData
+    }
 }

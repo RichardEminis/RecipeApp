@@ -63,12 +63,12 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(recipeId: Int) {
-        val recipe = viewModel.favoritesUiState.value?.favoriteRecipes?.find { it.id == recipeId }
-        val bundle = bundleOf(ARG_RECIPE_ID to recipe)
-
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<RecipeFragment>(R.id.mainContainer, args = bundle)
+        viewModel.getRecipeById(recipeId).observe(viewLifecycleOwner) { recipe ->
+            val bundle = bundleOf(ARG_RECIPE_ID to (recipe?.id ?: 0))
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<RecipeFragment>(R.id.mainContainer, args = bundle)
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import data.STUB
 import model.Recipe
 
 data class FavoritesUiState(
-    var favoriteRecipes: List<Recipe> = emptyList()
+    val favoriteRecipes: List<Recipe> = emptyList()
 )
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {

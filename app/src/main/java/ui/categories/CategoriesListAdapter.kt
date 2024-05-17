@@ -15,11 +15,17 @@ import model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>, private val fragment: CategoriesListFragment,
+    private var categories: List<Category>, private val fragment: CategoriesListFragment,
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
-    private var categories: List<Category> = emptyList()
+    private var dataSet: List<Category>
+        get() = categories
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            categories = value
+            notifyDataSetChanged()
+        }
 
     interface OnItemClickListener {
         fun onItemClick(categoryId: Int)
@@ -68,9 +74,7 @@ class CategoriesListAdapter(
         itemClickListener = listener
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: CategoriesListState) {
-        categories = newList.categories
-        notifyDataSetChanged()
+        dataSet = newList.categories
     }
 }

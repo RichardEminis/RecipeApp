@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import data.STUB
 import model.Category
-import ui.recipe.RecipeUiState
 
 data class CategoriesListState(
     val categories: List<Category> = emptyList()

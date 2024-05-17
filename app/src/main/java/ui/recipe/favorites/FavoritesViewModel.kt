@@ -19,10 +19,8 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _favoritesUiState
 
     fun loadFavorites() {
-        val currentState = _favoritesUiState.value
         val favoriteRecipes = getFavoriteRecipes()
-        _favoritesUiState.value = currentState?.copy(favoriteRecipes = favoriteRecipes)
-            ?: FavoritesUiState(favoriteRecipes = favoriteRecipes)
+        _favoritesUiState.value = favoritesUiState.value?.copy(favoriteRecipes = favoriteRecipes)
     }
 
     private fun getFavoriteRecipes(): List<Recipe> {

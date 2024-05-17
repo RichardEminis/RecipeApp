@@ -17,9 +17,6 @@ class CategoriesListViewModel : ViewModel() {
 
     fun loadCategories() {
         val categories = STUB.getCategories()
-        val currentState = _categoriesList.value
-        val newState = currentState?.copy(categories = categories)
-            ?: CategoriesListState(categories = categories)
-        _categoriesList.value = newState
+        _categoriesList.value = categoriesList.value?.copy(categories = categories)
     }
 }

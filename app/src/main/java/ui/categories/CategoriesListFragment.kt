@@ -43,12 +43,14 @@ class CategoriesListFragment : Fragment() {
 
         initRecycler()
 
-        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        val adapter = CategoriesListAdapter(STUB.getCategories())
 
         viewModel.loadCategories()
 
-        viewModel.categoriesList.observe(viewLifecycleOwner) { categories ->
-            adapter.submitList(categories)
+        viewModel.categoriesList.observe(viewLifecycleOwner) { categoriesListState ->
+            categoriesListState?.let {
+                adapter.dataSet = it.categories
+            }
         }
     }
 
@@ -67,7 +69,7 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = CategoriesListAdapter(STUB.getCategories(), this)
+        val adapter = CategoriesListAdapter(STUB.getCategories())
         recyclerView = binding.rvCategories
         recyclerView?.adapter = adapter
 

@@ -1,6 +1,7 @@
 package ui.categories
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,15 +12,16 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import data.STUB
 import model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private var categories: List<Category>, private val fragment: CategoriesListFragment,
-    private var itemClickListener: OnItemClickListener? = null
+    private var categories: List<Category>,
+    private var itemClickListener: OnItemClickListener? = null,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
-    private var dataSet: List<Category>
+    var dataSet: List<Category>
         get() = categories
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -36,11 +38,12 @@ class CategoriesListAdapter(
         var categoryImage: ImageView = itemView.findViewById(R.id.ivCategoryImage)
         var categoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
         val categoryDescription: TextView = itemView.findViewById(R.id.tvCategoryDescription)
+        val context: Context = view.context
     }
 
-    private fun getDrawableFromAssets(imageUrl: String): Drawable? {
+    private fun getDrawableFromAssets(context: Context, imageUrl: String): Drawable? {
         try {
-            val inputStream: InputStream? = fragment.context?.assets?.open(imageUrl)
+                val inputStream: InputStream? = context.assets?.open(imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             return drawable
         } catch (exception: Exception) {
@@ -60,7 +63,7 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryName.text = dataSet[position].title
         holder.categoryDescription.text = dataSet[position].description
-        holder.categoryImage.setImageDrawable(getDrawableFromAssets(dataSet[position].imageUrl))
+        holder.categoryImage.setImageDrawable(getDrawableFromAssets(holder.context, dataSet[position].imageUrl))
         holder.categoryItem.setOnClickListener {
             itemClickListener?.onItemClick(dataSet[position].id)
         }
@@ -72,9 +75,5 @@ class CategoriesListAdapter(
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
-    }
-
-    fun submitList(newList: CategoriesListState) {
-        dataSet = newList.categories
     }
 }

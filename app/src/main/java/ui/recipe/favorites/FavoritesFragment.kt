@@ -38,7 +38,7 @@ class FavoritesFragment : Fragment() {
         viewModel.loadFavorites()
 
         viewModel.favoritesUiState.observe(viewLifecycleOwner) { state ->
-            initRecycler(state.favoriteRecipes)
+            state?.let { initRecycler(it.favoriteRecipes) }
         }
     }
 

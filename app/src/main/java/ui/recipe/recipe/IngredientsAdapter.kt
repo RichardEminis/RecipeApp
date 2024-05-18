@@ -37,7 +37,7 @@ class IngredientsAdapter(
         val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
         } else {
-            multipliedQuantity.setScale(1, RoundingMode.HALF_UP).toString()
+            multipliedQuantity.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
         }
         holder.bind(ingredient, displayQuantity)
     }

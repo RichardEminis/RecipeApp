@@ -19,4 +19,8 @@ class CategoriesListViewModel : ViewModel() {
         val categories = STUB.getCategories()
         _categoriesList.value = categoriesList.value?.copy(categories = categories)
     }
+
+    fun getCategoryById(categoryId: Int): Category? {
+        return _categoriesList.value?.categories?.find { it.id == categoryId }
+    }
 }

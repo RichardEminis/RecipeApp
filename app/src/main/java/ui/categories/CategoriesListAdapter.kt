@@ -17,15 +17,13 @@ import model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private var categories: List<Category>,
     private var itemClickListener: OnItemClickListener? = null,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
-    var dataSet: List<Category>
-        get() = categories
+    var dataSet: List<Category> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
-            categories = value
+            field = value
             notifyDataSetChanged()
         }
 

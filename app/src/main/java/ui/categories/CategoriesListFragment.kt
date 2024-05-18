@@ -43,33 +43,31 @@ class CategoriesListFragment : Fragment() {
 
         initRecycler()
 
-        val adapter = CategoriesListAdapter(STUB.getCategories())
+        val adapter = CategoriesListAdapter()
 
         viewModel.loadCategories()
 
         viewModel.categoriesList.observe(viewLifecycleOwner) { categoriesListState ->
-            categoriesListState?.let {
-                adapter.dataSet = it.categories
-            }
+            adapter.dataSet = categoriesListState.categories
         }
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val categoryName = STUB.getCategories()[categoryId].title
-        val categoryImageUrl = STUB.getCategories()[categoryId].imageUrl
-        val bundle = bundleOf(
-            ARG_CATEGORY_ID to categoryId,
-            ARG_CATEGORY_NAME to categoryName,
-            ARG_CATEGORY_IMAGE_URL to categoryImageUrl
-        )
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<RecipesListFragment>(R.id.mainContainer, args = bundle)
+        viewModel.getCategoryById(categoryId)?.let { category ->
+            val bundle = bundleOf(
+                ARG_CATEGORY_ID to categoryId,
+                ARG_CATEGORY_NAME to category.title,
+                ARG_CATEGORY_IMAGE_URL to category.imageUrl
+            )
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<RecipesListFragment>(R.id.mainContainer, args = bundle)
+            }
         }
     }
 
     private fun initRecycler() {
-        val adapter = CategoriesListAdapter(STUB.getCategories())
+        val adapter = CategoriesListAdapter()
         recyclerView = binding.rvCategories
         recyclerView?.adapter = adapter
 

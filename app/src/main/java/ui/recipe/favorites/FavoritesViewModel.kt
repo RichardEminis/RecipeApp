@@ -14,7 +14,9 @@ data class FavoritesUiState(
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _favoritesUiState = MutableLiveData<FavoritesUiState>()
+    private val _favoritesUiState = MutableLiveData<FavoritesUiState>().apply {
+        value = FavoritesUiState()
+    }
     val favoritesUiState: LiveData<FavoritesUiState>
         get() = _favoritesUiState
 

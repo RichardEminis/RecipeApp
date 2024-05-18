@@ -15,13 +15,12 @@ import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import data.STUB
 import ui.recipe.recipeList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
-
+    private var categoriesAdapter: CategoriesListAdapter = CategoriesListAdapter()
     private val viewModel: CategoriesListViewModel by viewModels()
 
     private var _binding: FragmentListCategoriesBinding? = null
@@ -43,12 +42,10 @@ class CategoriesListFragment : Fragment() {
 
         initRecycler()
 
-        val adapter = CategoriesListAdapter()
-
         viewModel.loadCategories()
 
         viewModel.categoriesList.observe(viewLifecycleOwner) { categoriesListState ->
-            adapter.dataSet = categoriesListState.categories
+            categoriesAdapter.dataSet = categoriesListState.categories
         }
     }
 
@@ -67,11 +64,11 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = CategoriesListAdapter()
         recyclerView = binding.rvCategories
-        recyclerView?.adapter = adapter
+        recyclerView?.adapter = categoriesAdapter
 
-        adapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
+        categoriesAdapter.setOnItemClickListener(object :
+            CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
                 openRecipesByCategoryId(categoryId)
             }

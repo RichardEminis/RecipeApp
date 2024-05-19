@@ -11,15 +11,13 @@ data class CategoriesListState(
 )
 
 class CategoriesListViewModel : ViewModel() {
-    private val _categoriesList = MutableLiveData<CategoriesListState>().apply {
-        value = CategoriesListState()
-    }
+    private val _categoriesList = MutableLiveData(CategoriesListState())
     val categoriesList: LiveData<CategoriesListState>
         get() = _categoriesList
 
     fun loadCategories() {
         val categories = STUB.getCategories()
-        _categoriesList.value = _categoriesList.value?.copy(categories = categories)
+        _categoriesList.value = categoriesList.value?.copy(categories = categories)
     }
 
     fun getCategoryById(categoryId: Int): Category? {

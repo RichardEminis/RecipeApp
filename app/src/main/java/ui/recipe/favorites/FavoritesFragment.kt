@@ -56,19 +56,13 @@ class FavoritesFragment : Fragment() {
 
             adapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
                 override fun onItemClick(recipeId: Int) {
-                    openRecipesByCategoryId(recipeId)
+                    val bundle = bundleOf(ARG_RECIPE_ID to recipeId)
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        add<RecipeFragment>(R.id.mainContainer, args = bundle)
+                    }
                 }
             })
-        }
-    }
-
-    private fun openRecipesByCategoryId(recipeId: Int) {
-        viewModel.getRecipeById(recipeId).observe(viewLifecycleOwner) { recipe ->
-            val bundle = bundleOf(ARG_RECIPE_ID to (recipe?.id ?: 0))
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<RecipeFragment>(R.id.mainContainer, args = bundle)
-            }
         }
     }
 }

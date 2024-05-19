@@ -69,7 +69,7 @@ class RecipesListFragment : Fragment() {
 
         viewModel.recipesUiState.observe(viewLifecycleOwner) { uiState ->
             if (uiState != null) {
-                updateRecipesList(uiState.recipes)
+                uiState.recipes?.let { updateRecipesList(it) }
             }
         }
 

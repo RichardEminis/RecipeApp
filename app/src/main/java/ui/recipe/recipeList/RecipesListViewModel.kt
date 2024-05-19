@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel
 import data.STUB
 import model.Recipe
 
+data class RecipesUiState(
+    val recipes: List<Recipe>?
+)
+
 class RecipesListViewModel : ViewModel() {
 
     private val _recipesUiState = MutableLiveData<RecipesUiState?>()
@@ -13,11 +17,6 @@ class RecipesListViewModel : ViewModel() {
 
     fun loadRecipesByCategoryId(categoryId: Int) {
         val recipes = STUB.getRecipesByCategoryId(categoryId)
-        val uiState = recipes?.let { RecipesUiState(it) }
-        _recipesUiState.value = uiState
+        _recipesUiState.value = recipesUiState.value?.copy(recipes = recipes)
     }
-
-    data class RecipesUiState(
-        val recipes: List<Recipe>
-    )
 }

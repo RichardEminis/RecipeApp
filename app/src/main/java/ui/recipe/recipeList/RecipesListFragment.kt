@@ -114,11 +114,5 @@ class RecipesListFragment : Fragment() {
     private fun updateRecipesList(recipes: List<Recipe>) {
         val recipeListAdapter = RecipeListAdapter(recipes)
         recyclerView?.adapter = recipeListAdapter
-
-        recipeListAdapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
-            override fun onItemClick(recipeId: Int) {
-                openRecipeByRecipeId(recipeId)
-            }
-        })
     }
 }

@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
+import com.example.recipeapp.KEY_FAVORITES
 import data.STUB
 import model.Recipe
 
@@ -32,15 +34,8 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun getFavorites(): Set<String>? {
         val sharedPrefs = getApplication<Application>().getSharedPreferences(
-            "FavoritesSharedPreferences", Context.MODE_PRIVATE
+            FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE
         )
-        return sharedPrefs.getStringSet("favoriteRecipes", emptySet())
-    }
-
-    fun getRecipeById(recipeId: Int): LiveData<Recipe?> {
-        val recipeLiveData = MutableLiveData<Recipe?>()
-        val recipe = favoritesUiState.value?.favoriteRecipes?.find { it.id == recipeId }
-        recipeLiveData.value = recipe
-        return recipeLiveData
+        return sharedPrefs.getStringSet(KEY_FAVORITES, emptySet())
     }
 }

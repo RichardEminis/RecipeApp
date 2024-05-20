@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemIngredientsBinding
 import model.Ingredient
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 class IngredientsAdapter(
     private var dataSet: List<Ingredient> = emptyList()
@@ -36,7 +37,7 @@ class IngredientsAdapter(
         val displayQuantity = if (multipliedQuantity.scale() <= 0) {
             multipliedQuantity.toInt().toString()
         } else {
-            multipliedQuantity.setScale(1).toString()
+            multipliedQuantity.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
         }
         holder.bind(ingredient, displayQuantity)
     }

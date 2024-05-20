@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.ARG_CATEGORY_ID
 import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
@@ -80,10 +81,7 @@ class RecipesListFragment : Fragment() {
 
         val bundle = bundleOf(ARG_RECIPE_ID to recipeId)
 
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<RecipeFragment>(R.id.mainContainer, args = bundle)
-        }
+        findNavController().navigate(R.id.action_recipesListFragment_to_recipeFragment, bundle)
     }
 
     private fun initRecycler() {

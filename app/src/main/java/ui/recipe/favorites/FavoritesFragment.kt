@@ -4,18 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_RECIPE_ID
-import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 import model.Recipe
-import ui.recipe.recipe.RecipeFragment
 import ui.recipe.recipeList.RecipeListAdapter
 
 class FavoritesFragment : Fragment() {
@@ -57,8 +51,9 @@ class FavoritesFragment : Fragment() {
 
             adapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
                 override fun onItemClick(recipeId: Int) {
-                    val bundle = bundleOf(ARG_RECIPE_ID to recipeId)
-                    findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
+                    findNavController().navigate(
+                        FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId)
+                    )
                 }
             })
         }

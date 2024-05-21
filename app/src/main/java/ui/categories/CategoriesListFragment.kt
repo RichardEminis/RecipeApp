@@ -51,14 +51,12 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        viewModel.getCategoryById(categoryId)?.let { category ->
-            val bundle = bundleOf(
-                ARG_CATEGORY_ID to categoryId,
-                ARG_CATEGORY_NAME to category.title,
-                ARG_CATEGORY_IMAGE_URL to category.imageUrl
+        val action = CategoriesListFragmentDirections
+            .actionCategoriesListFragmentToRecipesListFragment(
+                viewModel.getCategoryById(categoryId)
+                    ?: throw IllegalArgumentException("Category with id $categoryId not found")
             )
-            findNavController().navigate(R.id.action_categoriesListFragment_to_recipesListFragment, bundle)
-        }
+        findNavController().navigate(action)
     }
 
     private fun initRecycler() {

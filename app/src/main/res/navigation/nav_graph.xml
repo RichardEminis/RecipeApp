@@ -16,12 +16,17 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:popExitAnim="@android:anim/fade_out">
+            <argument
+                android:name="category"
+                app:argType="ui.categories.Category" />
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/recipesListFragment"
         android:name="ui.recipe.recipeList.RecipesListFragment"
-        android:label="fragment_recipes_list"
+        android:label="RecipesListFragment"
         tools:layout="@layout/fragment_recipes_list">
         <action
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
@@ -29,7 +34,7 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
@@ -38,7 +43,7 @@
         tools:layout="@layout/fragment_recipe">
         <argument
             android:name="recipeId"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -52,6 +57,6 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"/>
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

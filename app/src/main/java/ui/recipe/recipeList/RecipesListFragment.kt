@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.ARG_CATEGORY_ID
-import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.ARG_CATEGORY_NAME
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
 import model.Recipe
@@ -22,7 +20,7 @@ import java.io.InputStream
 class RecipesListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
-
+    private val args: RecipesListFragmentArgs by navArgs()
     private val viewModel: RecipesListViewModel by viewModels()
 
     private var _binding: FragmentRecipesListBinding? = null
@@ -30,7 +28,6 @@ class RecipesListFragment : Fragment() {
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
 
-    private var categoryName: String? = null
     private var categoryImageUrl: String? = null
     private var categoryId: Int? = 0
 
@@ -51,11 +48,8 @@ class RecipesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
-        categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
-        categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
-
-        binding.recipeListText.text = categoryName
+        val category = args.category
+        binding.recipeListText.text = category.title
 
         val drawable = categoryImageUrl?.let { getDrawableFromAssets(it, requireContext()) }
         binding.recipeListImage.setImageDrawable(drawable)

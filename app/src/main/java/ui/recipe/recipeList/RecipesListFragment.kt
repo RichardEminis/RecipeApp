@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
 import model.Recipe
+import ui.recipe.recipe.RecipeFragmentArgs
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
@@ -27,9 +28,6 @@ class RecipesListFragment : Fragment() {
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
-
-    private var categoryImageUrl: String? = null
-    private var categoryId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +49,10 @@ class RecipesListFragment : Fragment() {
         val category = args.category
         binding.recipeListText.text = category.title
 
-        val drawable = categoryImageUrl?.let { getDrawableFromAssets(it, requireContext()) }
+        val drawable = getDrawableFromAssets(category.imageUrl, requireContext())
         binding.recipeListImage.setImageDrawable(drawable)
 
-        viewModel.loadRecipesByCategoryId(categoryId ?: 0)
+        viewModel.loadRecipesByCategoryId(category.id)
 
         viewModel.recipesUiState.observe(viewLifecycleOwner) { uiState ->
             if (uiState != null) {
@@ -74,7 +72,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = STUB.getRecipesByCategoryId(categoryId)?.let { RecipeListAdapter(it) }
+        val adapter = STUB.getRecipesByCategoryId(args.category.id)?.let { RecipeListAdapter(it) }
         recyclerView = binding.rvRecipes
         recyclerView?.adapter = adapter
 

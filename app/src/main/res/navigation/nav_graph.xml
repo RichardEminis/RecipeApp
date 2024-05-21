@@ -17,17 +17,18 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out">
-            <argument
-                android:name="category"
-                app:argType="ui.categories.Category" />
-        </action>
 
+        </action>
     </fragment>
+
     <fragment
         android:id="@+id/recipesListFragment"
         android:name="ui.recipe.recipeList.RecipesListFragment"
         android:label="RecipesListFragment"
         tools:layout="@layout/fragment_recipes_list">
+        <argument
+            android:name="category"
+            app:argType="model.Category" />
         <action
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment"
@@ -36,6 +37,7 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
+
     <fragment
         android:id="@+id/recipeFragment"
         android:name="ui.recipe.recipe.RecipeFragment"

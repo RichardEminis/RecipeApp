@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
+import kotlinx.serialization.json.Json
+import model.Category
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -42,8 +44,12 @@ class MainActivity : AppCompatActivity() {
             connection.connect()
 
             Log.d("!!!", "responseCode ${connection.responseCode}")
-            Log.d("!!!", "responseMessage ${connection.responseMessage}")
-            Log.d("!!!", "Body ${connection.inputStream.bufferedReader().readText()}")
+
+            val json = connection.inputStream.bufferedReader().readText()
+            Log.d("!!!", "Body $json")
+
+            val categories = Json.decodeFromString<List<Category>>(json)
+            Log.d("!!!", "Parsed categories: $categories")
         }
         thread.start()
     }

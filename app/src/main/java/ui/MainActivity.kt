@@ -8,9 +8,10 @@ import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
 import kotlinx.serialization.json.Json
 import model.Category
-import java.net.HttpURLConnection
-import java.net.URL
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.util.concurrent.Executors
+import okhttp3.logging.HttpLoggingInterceptor
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -19,6 +20,15 @@ class MainActivity : AppCompatActivity() {
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
 
     private val threadPool = Executors.newFixedThreadPool(10)
+    private val logInterceptor = HttpLoggingInterceptor { message ->
+        Log.d("OkHttp", message)
+    }.apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    private val client: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(logInterceptor)
+        .build()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +52,25 @@ class MainActivity : AppCompatActivity() {
         val thread = Thread {
             Log.d("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
 
-            val url = URL("https://recipes.androidsprint.ru/api/category")
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.connect()
+            val request = Request.Builder()
+                .url("https://recipes.androidsprint.ru/api/category")
+                .build()
 
-            Log.d("!!!", "responseCode ${connection.responseCode}")
+            client.newCall(request).execute().use { response ->
+                Log.d("!!!", "responseCode ${response.code}")
 
-            val json = connection.inputStream.bufferedReader().readText()
-            Log.d("!!!", "Body $json")
+                val json = response.body?.string() ?: ""
+                Log.d("!!!", "Body $json")
 
-            val categories = Json.decodeFromString<List<Category>>(json)
-            Log.d("!!!", "Parsed categories: $categories")
+                val categories = Json.decodeFromString<List<Category>>(json)
+                Log.d("!!!", "Parsed categories: $categories")
 
-            val categoryIds = categories.map { it.id }
+                val categoryIds = categories.map { it.id }
 
-            categoryIds.forEach { categoryId ->
-                threadPool.execute {
-                    getRecipesFromUrl(categoryId)
+                categoryIds.forEach { categoryId ->
+                    threadPool.execute {
+                        getRecipesFromUrl(categoryId)
+                    }
                 }
             }
         }
@@ -66,13 +78,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getRecipesFromUrl(categoryId: Int) {
-        Log.d("!!!", "Выполняю запрос рецептов для категории $categoryId на потоке: ${Thread.currentThread().name}")
+        Log.d(
+            "!!!",
+            "Выполняю запрос рецептов для категории $categoryId на потоке: ${Thread.currentThread().name}"
+        )
 
-        val url = URL("https://recipes.androidsprint.ru/api/category/$categoryId/recipes")
-        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-        connection.connect()
+        val request = Request.Builder()
+            .url("https://recipes.androidsprint.ru/api/category/$categoryId/recipes")
+            .build()
 
-        val json = connection.inputStream.bufferedReader().readText()
-        Log.d("!!!", "Рецепты для категории $categoryId: $json")
+        client.newCall(request).execute().use { response ->
+            Log.d("!!!", "responseCode ${response.code}")
+
+            val json = response.body?.string() ?: ""
+            Log.d("!!!", "Рецепты для категории $categoryId: $json")
+        }
     }
 }

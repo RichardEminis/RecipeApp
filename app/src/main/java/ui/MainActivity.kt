@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).navigate(R.id.categoriesListFragment)
         }
 
-        connection()
+        connect()
     }
 
-    private fun connection() {
+    private fun connect() {
         val thread = Thread {
             Log.d("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
 

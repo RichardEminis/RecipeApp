@@ -5,13 +5,19 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.RecipeApiService
 import com.example.recipeapp.databinding.ActivityMainBinding
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import model.Category
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.util.concurrent.Executors
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Retrofit
+import java.util.concurrent.Executors
+
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -28,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(logInterceptor)
         .build()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,5 +98,22 @@ class MainActivity : AppCompatActivity() {
             val json = response.body?.string() ?: ""
             Log.d("!!!", "Рецепты для категории $categoryId: $json")
         }
+    }
+
+    fun forLessonExample() {
+        val contentType = "application/json".toMediaType()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://recipes.androidsprint.ru/api/")
+            .addConverterFactory(Json.asConverterFactory(contentType))
+            .build()
+
+        val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+
+        val categoriesCall: Call<List<Category>> = service.getCategories()
+        val categoriesResponse: retrofit2.Response<List<Category>> = categoriesCall.execute()
+        val categories: List<Category>? = categoriesResponse.body()
+
+        Log.i("!!!", "categories ${categories.toString()}")
     }
 }

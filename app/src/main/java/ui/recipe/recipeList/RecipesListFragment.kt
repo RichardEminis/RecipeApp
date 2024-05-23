@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import data.STUB
 import model.Recipe
-import ui.recipe.recipe.RecipeFragmentArgs
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {

@@ -10,12 +10,15 @@ import kotlinx.serialization.json.Json
 import model.Category
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
+
+    private val threadPool = Executors.newFixedThreadPool(10)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +53,26 @@ class MainActivity : AppCompatActivity() {
 
             val categories = Json.decodeFromString<List<Category>>(json)
             Log.d("!!!", "Parsed categories: $categories")
+
+            val categoryIds = categories.map { it.id }
+
+            categoryIds.forEach { categoryId ->
+                threadPool.execute {
+                    getRecipesFromUrl(categoryId)
+                }
+            }
         }
         thread.start()
+    }
+
+    private fun getRecipesFromUrl(categoryId: Int) {
+        Log.d("!!!", "Выполняю запрос рецептов для категории $categoryId на потоке: ${Thread.currentThread().name}")
+
+        val url = URL("https://recipes.androidsprint.ru/api/category/$categoryId/recipes")
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        connection.connect()
+
+        val json = connection.inputStream.bufferedReader().readText()
+        Log.d("!!!", "Рецепты для категории $categoryId: $json")
     }
 }

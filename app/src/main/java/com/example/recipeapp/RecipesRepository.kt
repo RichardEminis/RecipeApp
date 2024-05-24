@@ -7,10 +7,8 @@ import model.Recipe
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Call
 import retrofit2.Retrofit
-import java.util.concurrent.Executors
 
 class RecipesRepository {
-    private val threadPool = Executors.newFixedThreadPool(10)
     private val contentType = "application/json".toMediaType()
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://recipes.androidsprint.ru/api/")

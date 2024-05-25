@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.KEY_FAVORITES
-import data.STUB
+import com.example.recipeapp.RecipesRepository
 import model.Recipe
 import java.io.InputStream
 
@@ -26,33 +26,33 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         get() = _recipeUiState
     private val sharedPreferences =
         application.getSharedPreferences(FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+    private val repository = RecipesRepository()
 
     fun loadRecipe(recipeId: Int, context: Context) {
         val favorites = getFavorites()
         val currentState = _recipeUiState.value
 
-        val drawableRecipeImage: Drawable? = try {
-            val inputStream: InputStream? =
-                context.assets?.open(STUB.getRecipeById(recipeId).imageUrl)
-            Drawable.createFromStream(inputStream, null)
-        } catch (exception: Exception) {
-            Log.e("mylog", "Error: $exception")
-            null
+        repository.getRecipeById(recipeId) { recipe ->
+            val drawableRecipeImage: Drawable? = try {
+                val inputStream: InputStream? = recipe?.imageUrl?.let { context.assets?.open(it) }
+                Drawable.createFromStream(inputStream, null)
+            } catch (exception: Exception) {
+                Log.e("mylog", "Error: $exception")
+                null
+            }
+
+            val newState = currentState?.copy(
+                recipe = recipe,
+                isFavorite = favorites?.contains(recipeId.toString()) ?: false,
+                recipeImage = drawableRecipeImage
+            ) ?: RecipeUiState(
+                recipe = recipe,
+                isFavorite = favorites?.contains(recipeId.toString()) ?: false,
+                recipeImage = drawableRecipeImage
+            )
+
+            _recipeUiState.postValue(newState)
         }
-
-        val newState = currentState?.copy(
-            recipe = STUB.getRecipeById(recipeId),
-            isFavorite = favorites?.contains(recipeId.toString()) ?: false,
-            recipeImage = drawableRecipeImage
-        ) ?: RecipeUiState(
-            recipe = STUB.getRecipeById(recipeId),
-            isFavorite = favorites?.contains(recipeId.toString()) ?: false,
-            recipeImage = drawableRecipeImage
-        )
-
-        _recipeUiState.value = newState
-
-        //TODO: load from network
     }
 
     private fun getFavorites(): MutableSet<String>? {

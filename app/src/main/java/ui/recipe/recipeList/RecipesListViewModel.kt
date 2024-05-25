@@ -17,13 +17,11 @@ class RecipesListViewModel : ViewModel() {
     val recipesUiState: MutableLiveData<RecipesUiState?>
         get() = _recipesUiState
 
-    private val threadPool = Executors.newFixedThreadPool(10)
+    private val repository = RecipesRepository()
 
     fun loadRecipesByCategoryId(categoryId: Int) {
-        threadPool.execute {
-            val repository = RecipesRepository()
-            val recipes = repository.getRecipes(categoryId)
-            _recipesUiState.value = recipesUiState.value?.copy(recipes = recipes)
+        repository.getRecipes(categoryId) { recipes ->
+            _recipesUiState.value = RecipesUiState(recipes)
         }
     }
 }

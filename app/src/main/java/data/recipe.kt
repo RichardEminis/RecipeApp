@@ -12,7 +12,7 @@ object STUB {
         Recipe(
             id = 0,
             title = "Классический гамбургер",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш говяжий"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -40,7 +40,7 @@ object STUB {
         Recipe(
             id = 1,
             title = "Чизбургер",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш говяжий"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -68,7 +68,7 @@ object STUB {
         Recipe(
             id = 2,
             title = "Бургер с грибами и сыром",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш говяжий"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -96,7 +96,7 @@ object STUB {
         Recipe(
             id = 3,
             title = "Бургер с курицей и авокадо",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Куринное филе"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -124,7 +124,7 @@ object STUB {
         Recipe(
             id = 4,
             title = "Бургер с рыбой",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Филе рыбы (треска, лосось и т. д.)"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -149,7 +149,7 @@ object STUB {
         Recipe(
             id = 5,
             title = "Бургер с беконом",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш говяжий"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),
@@ -177,7 +177,7 @@ object STUB {
         Recipe(
             id = 6,
             title = "Веганский бургер",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Веганская булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш из нута"),
                 Ingredient("0.25", "шт.", "Красный лук"),
@@ -204,7 +204,7 @@ object STUB {
         Recipe(
             id = 7,
             title = "Острый гамбургер",
-            listOfIngredients = listOf(
+            ingredients = listOf(
                 Ingredient("1", "шт.", "Булочка для гамбургера"),
                 Ingredient("150", "г", "Фарш говяжий"),
                 Ingredient("0.5", "шт.", "Лук репчатый"),

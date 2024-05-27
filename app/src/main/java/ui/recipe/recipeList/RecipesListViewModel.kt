@@ -3,9 +3,7 @@ package ui.recipe.recipeList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recipeapp.RecipesRepository
-import data.STUB
 import model.Recipe
-import java.util.concurrent.Executors
 
 data class RecipesUiState(
     val recipes: List<Recipe>?
@@ -21,7 +19,7 @@ class RecipesListViewModel : ViewModel() {
 
     fun loadRecipesByCategoryId(categoryId: Int) {
         repository.getRecipes(categoryId) { recipes ->
-            _recipesUiState.value = RecipesUiState(recipes)
+            _recipesUiState.postValue(RecipesUiState(recipes))
         }
     }
 }

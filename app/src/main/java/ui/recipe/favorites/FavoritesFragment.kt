@@ -38,7 +38,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initRecycler(favoritesSet: List<Recipe>) {
-        val adapter = RecipeListAdapter(favoritesSet)
+        val adapter = RecipeListAdapter()
         recyclerView = binding.rvFavorites
 
         if (favoritesSet.isEmpty()) {

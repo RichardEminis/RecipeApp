@@ -13,8 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import data.STUB
-import model.Recipe
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
@@ -22,6 +20,7 @@ class RecipesListFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private val args: RecipesListFragmentArgs by navArgs()
     private val viewModel: RecipesListViewModel by viewModels()
+    private var recipeListAdapter: RecipeListAdapter = RecipeListAdapter()
 
     private var _binding: FragmentRecipesListBinding? = null
     private val binding
@@ -55,7 +54,7 @@ class RecipesListFragment : Fragment() {
 
         viewModel.recipesUiState.observe(viewLifecycleOwner) { uiState ->
             if (uiState != null) {
-                uiState.recipes?.let { updateRecipesList(it) }
+                recipeListAdapter.dataSet = uiState.recipes!!
             }
         }
 
@@ -71,11 +70,10 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = STUB.getRecipesByCategoryId(args.category.id)?.let { RecipeListAdapter(it) }
         recyclerView = binding.rvRecipes
-        recyclerView?.adapter = adapter
+        recyclerView?.adapter = recipeListAdapter
 
-        adapter?.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+        recipeListAdapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
             }
@@ -93,10 +91,5 @@ class RecipesListFragment : Fragment() {
             Log.e("mylog", "Error: $exception")
             null
         }
-    }
-
-    private fun updateRecipesList(recipes: List<Recipe>) {
-        val recipeListAdapter = RecipeListAdapter(recipes)
-        recyclerView?.adapter = recipeListAdapter
     }
 }

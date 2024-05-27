@@ -26,9 +26,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val favoritesSet = getFavorites() ?: emptySet()
         val favoriteIds = favoritesSet.map { it.toInt() }
         repository.getRecipes(favoriteIds) { recipes ->
-            _favoritesUiState.postValue(
-                FavoritesUiState(favoriteRecipes = recipes)
-            )
+            _favoritesUiState.value = favoritesUiState.value?.copy(favoriteRecipes = recipes)
         }
     }
 

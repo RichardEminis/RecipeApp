@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.KEY_FAVORITES
-import data.STUB
+import com.example.recipeapp.RecipesRepository
 import model.Recipe
 
 data class FavoritesUiState(
@@ -20,14 +20,16 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesUiState: LiveData<FavoritesUiState>
         get() = _favoritesUiState
 
-    fun loadFavorites() {
-        val favoriteRecipes = getFavoriteRecipes()
-        _favoritesUiState.value = favoritesUiState.value?.copy(favoriteRecipes = favoriteRecipes)
-    }
+    private val repository = RecipesRepository()
 
-    private fun getFavoriteRecipes(): List<Recipe> {
+    fun loadFavorites() {
         val favoritesSet = getFavorites() ?: emptySet()
-        return STUB.getRecipesByIds(favoritesSet.map { it.toInt() }.toSet())
+        val favoriteIds = favoritesSet.map { it.toInt() }
+        repository.getRecipes(favoriteIds) { recipes ->
+            _favoritesUiState.postValue(
+                FavoritesUiState(favoriteRecipes = recipes)
+            )
+        }
     }
 
     private fun getFavorites(): Set<String>? {

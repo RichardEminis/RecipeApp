@@ -51,4 +51,14 @@ class RecipesRepository {
             }
         }
     }
+
+    fun getRecipes(ids: List<Int>, callback: (List<Recipe>) -> Unit) {
+        threadPool.execute {
+            val recipesCall: Call<List<Recipe>> = service.getRecipes(ids.joinToString(","))
+            val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
+            resultHandler.post {
+                callback(recipesResponse.body() ?: emptyList())
+            }
+        }
+    }
 }

@@ -3,7 +3,7 @@ package ui.categories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import data.STUB
+import com.example.recipeapp.RecipesRepository
 import model.Category
 
 data class CategoriesListState(
@@ -15,9 +15,12 @@ class CategoriesListViewModel : ViewModel() {
     val categoriesList: LiveData<CategoriesListState>
         get() = _categoriesList
 
+    private val repository = RecipesRepository()
+
     fun loadCategories() {
-        val categories = STUB.getCategories()
-        _categoriesList.value = categoriesList.value?.copy(categories = categories)
+        repository.getCategories { categories ->
+            _categoriesList.value = categoriesList.value?.copy(categories = categories)
+        }
     }
 
     fun getCategoryById(categoryId: Int): Category? {

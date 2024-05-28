@@ -61,7 +61,7 @@ class RecipeFragment : Fragment() {
                 binding.recipeText.text = item.recipe?.title
 
                 ingredientsAdapter.ingredientsUpdateDataSet(
-                    item.recipe?.listOfIngredients ?: emptyList(), item.portionsCount
+                    item.recipe?.ingredients ?: emptyList(), item.portionsCount
                 )
                 methodAdapter.methodUpdateDataSet(item.recipe?.method ?: emptyList())
 
@@ -77,7 +77,7 @@ class RecipeFragment : Fragment() {
                     binding.portionsValue.text = progress.toString()
                     viewModel.updatePortionsCount(progress)
                     ingredientsAdapter.ingredientsUpdateDataSet(
-                        item.recipe?.listOfIngredients ?: emptyList(), progress
+                        item.recipe?.ingredients ?: emptyList(), progress
                     )
                 }
 

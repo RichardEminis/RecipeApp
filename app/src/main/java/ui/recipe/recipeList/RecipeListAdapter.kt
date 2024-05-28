@@ -1,5 +1,6 @@
 package ui.recipe.recipeList
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -9,13 +10,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
+import model.Category
 import model.Recipe
 import java.io.InputStream
 
 class RecipeListAdapter(
-    private val dataSet: List<Recipe>,
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
+
+    var dataSet: List<Recipe> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     interface OnItemClickListener {
         fun onItemClick(recipeId: Int)

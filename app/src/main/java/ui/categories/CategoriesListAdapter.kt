@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import data.STUB
 import model.Category
 import java.io.InputStream
 

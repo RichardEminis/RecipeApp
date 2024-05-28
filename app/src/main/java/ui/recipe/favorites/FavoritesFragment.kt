@@ -35,6 +35,7 @@ class FavoritesFragment : Fragment() {
 
         viewModel.favoritesUiState.observe(viewLifecycleOwner) { state ->
             state?.let { initRecycler(it.favoriteRecipes) }
+            recipeListAdapter.dataSet = state.favoriteRecipes
         }
     }
 
@@ -49,7 +50,8 @@ class FavoritesFragment : Fragment() {
             recyclerView?.visibility = View.VISIBLE
             recyclerView?.adapter = recipeListAdapter
 
-            recipeListAdapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+            recipeListAdapter.setOnItemClickListener(object :
+                RecipeListAdapter.OnItemClickListener {
                 override fun onItemClick(recipeId: Int) {
                     findNavController().navigate(
                         FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId)

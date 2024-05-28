@@ -54,7 +54,7 @@ class RecipesListFragment : Fragment() {
 
         viewModel.recipesUiState.observe(viewLifecycleOwner) { uiState ->
             if (uiState != null) {
-                recipeListAdapter.dataSet = uiState.recipes!!
+                recipeListAdapter.dataSet = uiState.recipes
             }
         }
 

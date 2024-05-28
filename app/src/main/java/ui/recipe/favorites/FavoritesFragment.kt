@@ -15,6 +15,7 @@ import ui.recipe.recipeList.RecipeListAdapter
 class FavoritesFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private val viewModel: FavoritesViewModel by viewModels()
+    private var recipeListAdapter: RecipeListAdapter = RecipeListAdapter()
 
     private val binding: FragmentFavoritesBinding by lazy {
         FragmentFavoritesBinding.inflate(layoutInflater)
@@ -38,7 +39,6 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initRecycler(favoritesSet: List<Recipe>) {
-        val adapter = RecipeListAdapter()
         recyclerView = binding.rvFavorites
 
         if (favoritesSet.isEmpty()) {
@@ -47,9 +47,9 @@ class FavoritesFragment : Fragment() {
         } else {
             binding.emptyFavorites.visibility = View.GONE
             recyclerView?.visibility = View.VISIBLE
-            recyclerView?.adapter = adapter
+            recyclerView?.adapter = recipeListAdapter
 
-            adapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
+            recipeListAdapter.setOnItemClickListener(object : RecipeListAdapter.OnItemClickListener {
                 override fun onItemClick(recipeId: Int) {
                     findNavController().navigate(
                         FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId)

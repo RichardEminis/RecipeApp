@@ -1,21 +1,18 @@
 package com.example.recipeapp
 
+import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import model.Category
 import model.Recipe
 import okhttp3.MediaType.Companion.toMediaType
-import retrofit2.Call
-import retrofit2.Retrofit
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Response
-import java.util.concurrent.Executors
+import retrofit2.Retrofit
 
 class RecipesRepository {
     private val logInterceptor = HttpLoggingInterceptor { message ->
@@ -26,8 +23,6 @@ class RecipesRepository {
     private val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(logInterceptor)
         .build()
-    private val threadPool = Executors.newFixedThreadPool(10)
-    private val resultHandler = Handler(Looper.getMainLooper())
     private val contentType = "application/json".toMediaType()
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://recipes.androidsprint.ru/api/")
@@ -60,13 +55,11 @@ class RecipesRepository {
         }
     }
 
-    fun getRecipes(ids: List<Int>, callback: (List<Recipe>) -> Unit) {
-        threadPool.execute {
+    suspend fun getRecipes(ids: List<Int>): List<Recipe> {
+        return withContext(Dispatchers.IO) {
             val recipesCall: Call<List<Recipe>> = service.getRecipes(ids.joinToString(","))
             val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-            resultHandler.post {
-                callback(recipesResponse.body() ?: emptyList())
-            }
+            recipesResponse.body() ?: emptyList()
         }
     }
 }

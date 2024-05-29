@@ -1,18 +1,14 @@
 package ui.recipe.recipeList
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
-import model.Category
 import model.Recipe
-import java.io.InputStream
 
 class RecipeListAdapter(
     private var itemClickListener: OnItemClickListener? = null
@@ -33,26 +29,16 @@ class RecipeListAdapter(
         private val binding = ItemRecipeBinding.bind(view)
         fun bind(recipe: Recipe, itemClickListener: OnItemClickListener?) = with(binding) {
             tvRecipeName.text = recipe.title
-            ivRecipeImage.setImageDrawable(
-                getDrawableFromAssets(
-                    recipe.imageUrl, itemView.context
-                )
-            )
+
+            val imageUrl = "https://recipes.androidsprint.ru/api/images/${recipe.imageUrl}"
+            Glide.with(itemView.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.img_placeholder)
+                .error(R.drawable.img_error)
+                .into(ivRecipeImage)
+
             cvRecipeItem.setOnClickListener {
                 itemClickListener?.onItemClick(recipe.id)
-            }
-        }
-
-        private fun getDrawableFromAssets(
-            imageUrl: String,
-            context: Context
-        ): Drawable? {
-            return try {
-                val inputStream: InputStream? = context.assets?.open(imageUrl)
-                Drawable.createFromStream(inputStream, null)
-            } catch (exception: Exception) {
-                Log.e("mylog", "Error: $exception")
-                null
             }
         }
     }

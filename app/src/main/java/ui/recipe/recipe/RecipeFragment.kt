@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import ui.recipe.RecipeViewModel
@@ -54,8 +55,12 @@ class RecipeFragment : Fragment() {
                     binding.ibFavorite.setImageResource(R.drawable.ic_heart_empty)
                 }
 
-                item.recipeImage?.let { drawable ->
-                    binding.recipeImage.setImageDrawable(drawable)
+                item.recipeImage?.let { imageUrl ->
+                    Glide.with(this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(binding.recipeImage)
                 }
 
                 binding.recipeText.text = item.recipe?.title

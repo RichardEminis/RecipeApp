@@ -2,8 +2,6 @@ package ui.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,13 +9,12 @@ import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
 import model.Recipe
-import java.io.InputStream
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
     var portionsCount: Int = 1,
     var isFavorite: Boolean = false,
-    var recipeImage: Drawable? = null,
+    var recipeImage: String? = null,
 )
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -33,22 +30,16 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         val currentState = _recipeUiState.value
 
         repository.getRecipeById(recipeId) { recipe ->
-            val drawableRecipeImage: Drawable? = try {
-                val inputStream: InputStream? = recipe?.imageUrl?.let { context.assets?.open(it) }
-                Drawable.createFromStream(inputStream, null)
-            } catch (exception: Exception) {
-                Log.e("mylog", "Error: $exception")
-                null
-            }
+            val imageUrl = "https://recipes.androidsprint.ru/api/images/${recipe?.imageUrl}"
 
             val newState = currentState?.copy(
                 recipe = recipe,
                 isFavorite = favorites?.contains(recipeId.toString()) ?: false,
-                recipeImage = drawableRecipeImage
+                recipeImage = imageUrl
             ) ?: RecipeUiState(
                 recipe = recipe,
                 isFavorite = favorites?.contains(recipeId.toString()) ?: false,
-                recipeImage = drawableRecipeImage
+                recipeImage = imageUrl
             )
 
             _recipeUiState.postValue(newState)

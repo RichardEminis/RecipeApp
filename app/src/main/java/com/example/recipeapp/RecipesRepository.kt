@@ -52,13 +52,11 @@ class RecipesRepository {
         }
     }
 
-    fun getRecipeById(recipeId: Int, callback: (Recipe?) -> Unit) {
-        threadPool.execute {
+    suspend fun getRecipeById(recipeId: Int): Recipe? {
+        return withContext(Dispatchers.IO) {
             val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
             val recipeResponse: Response<Recipe> = recipeCall.execute()
-            resultHandler.post {
-                callback(recipeResponse.body())
-            }
+            recipeResponse.body()
         }
     }
 

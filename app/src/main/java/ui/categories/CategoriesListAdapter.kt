@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import model.Category
 
@@ -51,7 +52,7 @@ class CategoriesListAdapter(
             itemClickListener?.onItemClick(dataSet[position].id)
         }
 
-        val imageUrl = "https://recipes.androidsprint.ru/api/images/${dataSet[position].imageUrl}"
+        val imageUrl = IMAGE_URL + dataSet[position].imageUrl
         Glide.with(holder.context)
             .load(imageUrl)
             .placeholder(R.drawable.img_placeholder)

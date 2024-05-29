@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
+import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
 import model.Recipe
@@ -30,7 +31,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         val currentState = _recipeUiState.value
 
         repository.getRecipeById(recipeId) { recipe ->
-            val imageUrl = "https://recipes.androidsprint.ru/api/images/${recipe?.imageUrl}"
+            val imageUrl = IMAGE_URL + recipe?.imageUrl
 
             val newState = currentState?.copy(
                 recipe = recipe,

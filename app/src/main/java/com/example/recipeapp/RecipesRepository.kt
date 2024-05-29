@@ -10,6 +10,8 @@ import retrofit2.Retrofit
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -34,13 +36,11 @@ class RecipesRepository {
         .build()
     private val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
 
-    fun getCategories(callback: (List<Category>) -> Unit) {
-        threadPool.execute {
+    suspend fun getCategories(): List<Category> {
+        return withContext(Dispatchers.IO) {
             val categoriesCall: Call<List<Category>> = service.getCategories()
             val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
-            resultHandler.post {
-                callback(categoriesResponse.body() ?: emptyList())
-            }
+            categoriesResponse.body() ?: emptyList()
         }
     }
 

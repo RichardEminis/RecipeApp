@@ -2,8 +2,6 @@ package ui.categories
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import model.Category
-import java.io.InputStream
 
 class CategoriesListAdapter(
     private var itemClickListener: OnItemClickListener? = null,
@@ -38,17 +37,6 @@ class CategoriesListAdapter(
         val context: Context = view.context
     }
 
-    private fun getDrawableFromAssets(context: Context, imageUrl: String): Drawable? {
-        try {
-                val inputStream: InputStream? = context.assets?.open(imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
-            return drawable
-        } catch (exception: Exception) {
-            Log.e("mylog", "Error: $exception")
-            return null
-        }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): ViewHolder {
@@ -60,10 +48,16 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.categoryName.text = dataSet[position].title
         holder.categoryDescription.text = dataSet[position].description
-        holder.categoryImage.setImageDrawable(getDrawableFromAssets(holder.context, dataSet[position].imageUrl))
         holder.categoryItem.setOnClickListener {
             itemClickListener?.onItemClick(dataSet[position].id)
         }
+
+        val imageUrl = IMAGE_URL + dataSet[position].imageUrl
+        Glide.with(holder.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(holder.categoryImage)
     }
 
     override fun getItemCount(): Int {

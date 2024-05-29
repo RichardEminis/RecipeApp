@@ -12,6 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.recipeapp.IMAGE_URL
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
 import java.io.InputStream
 
@@ -47,8 +50,12 @@ class RecipesListFragment : Fragment() {
         val category = args.category
         binding.recipeListText.text = category.title
 
-        val drawable = getDrawableFromAssets(category.imageUrl, requireContext())
-        binding.recipeListImage.setImageDrawable(drawable)
+        val imageUrl = IMAGE_URL + category.imageUrl
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(binding.recipeListImage)
 
         viewModel.loadRecipesByCategoryId(category.id)
 

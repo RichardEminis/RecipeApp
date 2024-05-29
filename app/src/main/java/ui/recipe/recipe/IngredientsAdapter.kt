@@ -33,11 +33,17 @@ class IngredientsAdapter(
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ingredient = dataSet[position]
-        val multipliedQuantity = BigDecimal(ingredient.quantity).multiply(BigDecimal(portionsCount))
-        val displayQuantity = if (multipliedQuantity.scale() <= 0) {
-            multipliedQuantity.toInt().toString()
-        } else {
-            multipliedQuantity.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
+        val displayQuantity = try {
+            val quantity = BigDecimal(ingredient.quantity)
+            val multipliedQuantity = quantity.multiply(BigDecimal(portionsCount))
+            if (multipliedQuantity.scale() <= 0) {
+                multipliedQuantity.toInt().toString()
+            } else {
+                multipliedQuantity.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros()
+                    .toPlainString()
+            }
+        } catch (e: NumberFormatException) {
+            ingredient.quantity
         }
         holder.bind(ingredient, displayQuantity)
     }

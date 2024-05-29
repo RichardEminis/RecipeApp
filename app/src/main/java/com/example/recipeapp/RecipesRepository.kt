@@ -44,13 +44,11 @@ class RecipesRepository {
         }
     }
 
-    fun getRecipes(categoryId: Int, callback: (List<Recipe>) -> Unit) {
-        threadPool.execute {
+    suspend fun getRecipes(categoryId: Int): List<Recipe> {
+        return withContext(Dispatchers.IO) {
             val recipesCall: Call<List<Recipe>> = service.getRecipes(categoryId)
             val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-            resultHandler.post {
-                callback(recipesResponse.body() ?: emptyList())
-            }
+            recipesResponse.body() ?: emptyList()
         }
     }
 

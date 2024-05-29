@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
 import model.Recipe
@@ -30,7 +31,7 @@ class RecipeListAdapter(
         fun bind(recipe: Recipe, itemClickListener: OnItemClickListener?) = with(binding) {
             tvRecipeName.text = recipe.title
 
-            val imageUrl = "https://recipes.androidsprint.ru/api/images/${recipe.imageUrl}"
+            val imageUrl = IMAGE_URL + recipe.imageUrl
             Glide.with(itemView.context)
                 .load(imageUrl)
                 .placeholder(R.drawable.img_placeholder)

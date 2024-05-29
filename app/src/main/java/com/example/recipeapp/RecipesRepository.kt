@@ -25,7 +25,7 @@ class RecipesRepository {
         .build()
     private val contentType = "application/json".toMediaType()
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://recipes.androidsprint.ru/api/")
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()

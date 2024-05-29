@@ -1,9 +1,6 @@
 package ui.recipe.recipeList
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
 
@@ -85,18 +81,5 @@ class RecipesListFragment : Fragment() {
                 openRecipeByRecipeId(recipeId)
             }
         })
-    }
-
-    private fun getDrawableFromAssets(
-        imageUrl: String,
-        context: Context
-    ): Drawable? {
-        return try {
-            val inputStream: InputStream? = context.assets?.open(imageUrl)
-            Drawable.createFromStream(inputStream, null)
-        } catch (exception: Exception) {
-            Log.e("mylog", "Error: $exception")
-            null
-        }
     }
 }

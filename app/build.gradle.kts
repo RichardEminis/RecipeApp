@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.room.ktx)
     val fragment_version = "1.6.2"
     val nav_version = "2.7.7"
     val room_version = "2.6.1"

@@ -22,7 +22,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesUiState: LiveData<FavoritesUiState>
         get() = _favoritesUiState
 
-    private val repository = RecipesRepository()
+    private val repository = RecipesRepository(application)
 
     fun loadFavorites() {
         val favoritesSet = getFavorites() ?: emptySet()

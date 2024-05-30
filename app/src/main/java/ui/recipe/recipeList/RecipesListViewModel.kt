@@ -1,5 +1,7 @@
 package ui.recipe.recipeList
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +13,13 @@ data class RecipesUiState(
     val recipes: List<Recipe> = emptyList()
 )
 
-class RecipesListViewModel : ViewModel() {
+class RecipesListViewModel(application: Application) : AndroidViewModel(application){
 
     private val _recipesUiState = MutableLiveData(RecipesUiState())
     val recipesUiState: MutableLiveData<RecipesUiState>
         get() = _recipesUiState
 
-    private val repository = RecipesRepository()
+    private val repository = RecipesRepository(application)
 
     fun loadRecipesByCategoryId(categoryId: Int) {
         viewModelScope.launch {

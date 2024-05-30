@@ -46,6 +46,10 @@ class RecipesRepository(context: Context) {
         return categoriesDao.getAllCategories()
     }
 
+    fun saveCategoriesToCache(categories: List<Category>) {
+        categoriesDao.insertCategories(categories)
+    }
+
     suspend fun getCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             val categoriesCall: Call<List<Category>> = service.getCategories()

@@ -5,10 +5,12 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
+import kotlinx.coroutines.launch
 import model.Recipe
 
 data class RecipeUiState(
@@ -26,11 +28,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         application.getSharedPreferences(FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE)
     private val repository = RecipesRepository()
 
-    fun loadRecipe(recipeId: Int, context: Context) {
+    fun loadRecipe(recipeId: Int) {
         val favorites = getFavorites()
         val currentState = _recipeUiState.value
 
-        repository.getRecipeById(recipeId) { recipe ->
+        viewModelScope.launch {
+            val recipe = repository.getRecipeById(recipeId)
             val imageUrl = IMAGE_URL + recipe?.imageUrl
 
             val newState = currentState?.copy(

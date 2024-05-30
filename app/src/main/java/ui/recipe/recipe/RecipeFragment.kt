@@ -38,7 +38,7 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recipeId: Int = args.recipeId
 
-        viewModel.loadRecipe(recipeId, requireContext())
+        viewModel.loadRecipe(recipeId)
 
         initUI()
     }

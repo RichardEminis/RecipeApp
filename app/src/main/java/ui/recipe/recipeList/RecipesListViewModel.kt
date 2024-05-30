@@ -2,7 +2,9 @@ package ui.recipe.recipeList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
+import kotlinx.coroutines.launch
 import model.Recipe
 
 data class RecipesUiState(
@@ -18,7 +20,8 @@ class RecipesListViewModel : ViewModel() {
     private val repository = RecipesRepository()
 
     fun loadRecipesByCategoryId(categoryId: Int) {
-        repository.getRecipes(categoryId) { recipes ->
+        viewModelScope.launch {
+            val recipes = repository.getRecipes(categoryId)
             _recipesUiState.value = _recipesUiState.value?.copy(recipes = recipes)
         }
     }

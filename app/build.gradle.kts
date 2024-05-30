@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlinx-serialization")
+    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
 }
 
 android {
@@ -46,6 +47,10 @@ android {
 dependencies {
     val fragment_version = "1.6.2"
     val nav_version = "2.7.7"
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0-RC")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.cardview:cardview:1.0.0")

@@ -2,7 +2,6 @@ package com.example.recipeapp
 
 import android.content.Context
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -42,12 +41,16 @@ class RecipesRepository(context: Context) {
 
     private val categoriesDao = db.categoriesDao()
 
-    fun getCategoriesFromCache(): List<Category> {
-        return categoriesDao.getAllCategories()
+    suspend fun getCategoriesFromCache(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesDao.getAllCategories()
+        }
     }
 
-    fun saveCategoriesToCache(categories: List<Category>) {
-        categoriesDao.insertCategories(categories)
+    suspend fun saveCategoriesToCache(categories: List<Category>) {
+        return withContext(Dispatchers.IO) {
+            categoriesDao.insertCategories(categories)
+        }
     }
 
     suspend fun getCategories(): List<Category> {

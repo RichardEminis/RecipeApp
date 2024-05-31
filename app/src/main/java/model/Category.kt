@@ -1,6 +1,8 @@
 package model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,11 +16,12 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "category")
 data class Category(
     @PrimaryKey val id: Int,
-    val title: String,
-    val description: String,
-    val imageUrl: String,
+    @ColumnInfo(name = "1") val title: String,
+    @ColumnInfo(name = "2") val description: String,
+    @ColumnInfo(name = "3") val imageUrl: String,
 ): Parcelable
 
+@Dao
 interface CategoriesDao {
     @Query("SELECT * FROM category")
     fun getAllCategories(): List<Category>

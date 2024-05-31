@@ -1,10 +1,13 @@
 package com.example.recipeapp
 
+import android.content.Context
 import android.util.Log
+import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import model.AppDatabase
 import model.Category
 import model.Recipe
 import okhttp3.MediaType.Companion.toMediaType
@@ -14,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class RecipesRepository {
+class RecipesRepository(context: Context) {
     private val logInterceptor = HttpLoggingInterceptor { message ->
         Log.d("OkHttp", message)
     }.apply {
@@ -30,6 +33,25 @@ class RecipesRepository {
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+
+    private val db = Room.databaseBuilder(
+        context,
+        AppDatabase::class.java, "recipes-database"
+    ).build()
+
+    private val categoriesDao = db.categoriesDao()
+
+    suspend fun getCategoriesFromCache(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesDao.getAllCategories()
+        }
+    }
+
+    suspend fun saveCategoriesToCache(categories: List<Category>) {
+        return withContext(Dispatchers.IO) {
+            categoriesDao.insertCategories(categories)
+        }
+    }
 
     suspend fun getCategories(): List<Category> {
         return withContext(Dispatchers.IO) {

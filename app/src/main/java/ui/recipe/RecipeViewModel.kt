@@ -2,6 +2,7 @@ package ui.recipe
 
 import android.app.Application
 import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,7 +27,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         get() = _recipeUiState
     private val sharedPreferences =
         application.getSharedPreferences(FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-    private val repository = RecipesRepository()
+    private val repository = RecipesRepository(application)
 
     fun loadRecipe(recipeId: Int) {
         val favorites = getFavorites()

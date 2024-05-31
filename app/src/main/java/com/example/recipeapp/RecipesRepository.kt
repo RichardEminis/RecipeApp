@@ -40,6 +40,19 @@ class RecipesRepository(context: Context) {
     ).build()
 
     private val categoriesDao = db.categoriesDao()
+    private val recipesDao = db.recipesDao()
+
+    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipesByCategory(categoryId)
+        }
+    }
+
+    suspend fun saveRecipesToCache(recipes: List<Recipe>) {
+        return withContext(Dispatchers.IO) {
+            recipesDao.insertRecipes(recipes)
+        }
+    }
 
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(Dispatchers.IO) {

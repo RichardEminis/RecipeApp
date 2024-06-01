@@ -1,7 +1,7 @@
 package com.example.recipeapp
 
-import model.Category
-import model.Recipe
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Recipe
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

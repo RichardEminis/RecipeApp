@@ -1,4 +1,4 @@
-package ui.recipe.favorites
+package com.example.recipeapp.ui.recipe.favorites
 
 import android.app.Application
 import android.content.Context
@@ -10,7 +10,7 @@ import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
 import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
 import kotlinx.coroutines.launch
-import model.Recipe
+import com.example.recipeapp.model.Recipe
 
 data class FavoritesUiState(
     val favoriteRecipes: List<Recipe> = emptyList()

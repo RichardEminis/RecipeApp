@@ -7,9 +7,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import model.AppDatabase
-import model.Category
-import model.Recipe
+import com.example.recipeapp.model.AppDatabase
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Recipe
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

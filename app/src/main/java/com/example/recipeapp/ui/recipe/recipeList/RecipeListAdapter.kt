@@ -1,4 +1,4 @@
-package ui.recipe.recipeList
+package com.example.recipeapp.ui.recipe.recipeList
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
-import model.Recipe
+import com.example.recipeapp.model.Recipe
 
 class RecipeListAdapter(
     private var itemClickListener: OnItemClickListener? = null

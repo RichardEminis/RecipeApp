@@ -1,4 +1,4 @@
-package ui.recipe.recipeList
+package com.example.recipeapp.ui.recipe.recipeList
 
 import android.os.Bundle
 import android.view.LayoutInflater

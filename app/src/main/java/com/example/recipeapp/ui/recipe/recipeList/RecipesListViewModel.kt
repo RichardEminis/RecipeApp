@@ -1,4 +1,4 @@
-package ui.recipe.recipeList
+package com.example.recipeapp.ui.recipe.recipeList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
 import kotlinx.coroutines.launch
-import model.Recipe
+import com.example.recipeapp.model.Recipe
 
 data class RecipesUiState(
     val recipes: List<Recipe> = emptyList()

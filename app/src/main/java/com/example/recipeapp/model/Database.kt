@@ -1,4 +1,4 @@
-package model
+package com.example.recipeapp.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

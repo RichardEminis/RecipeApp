@@ -1,4 +1,4 @@
-package ui.categories
+package com.example.recipeapp.ui.categories
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
-import model.Category
+import com.example.recipeapp.model.Category
 
 class CategoriesListAdapter(
     private var itemClickListener: OnItemClickListener? = null,

@@ -1,4 +1,4 @@
-package ui.recipe
+package com.example.recipeapp.ui.recipe
 
 import android.app.Application
 import android.content.Context
@@ -12,7 +12,7 @@ import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
 import kotlinx.coroutines.launch
-import model.Recipe
+import com.example.recipeapp.model.Recipe
 
 data class RecipeUiState(
     var recipe: Recipe? = null,

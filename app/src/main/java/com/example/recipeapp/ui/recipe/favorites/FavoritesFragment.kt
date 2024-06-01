@@ -1,4 +1,4 @@
-package ui.recipe.favorites
+package com.example.recipeapp.ui.recipe.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
-import model.Recipe
-import ui.recipe.recipeList.RecipeListAdapter
+import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.recipe.recipeList.RecipeListAdapter
 
 class FavoritesFragment : Fragment() {
     private var recyclerView: RecyclerView? = null

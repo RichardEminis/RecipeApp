@@ -1,6 +1,7 @@
 package com.example.recipeapp.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.Insert
@@ -10,6 +11,7 @@ import androidx.room.Query
 import androidx.room.TypeConverter
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -22,7 +24,8 @@ data class Recipe(
     val ingredients: List<Ingredient>,
     val method: List<String>,
     val imageUrl: String,
-    val categoryId: Int,
+    @ColumnInfo(name = "category_id")
+    @Transient val categoryId: Int? = null
 ) : Parcelable
 
 class Converters {
@@ -49,7 +52,7 @@ class Converters {
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipe WHERE categoryId = :categoryId")
+    @Query("SELECT * FROM recipe WHERE category_Id = :categoryId")
     fun getRecipesByCategory(categoryId: Int): List<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

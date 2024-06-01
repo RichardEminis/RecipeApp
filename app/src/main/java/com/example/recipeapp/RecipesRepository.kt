@@ -37,7 +37,9 @@ class RecipesRepository(context: Context) {
     private val db = Room.databaseBuilder(
         context,
         AppDatabase::class.java, "recipes-database"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     private val categoriesDao = db.categoriesDao()
     private val recipesDao = db.recipesDao()

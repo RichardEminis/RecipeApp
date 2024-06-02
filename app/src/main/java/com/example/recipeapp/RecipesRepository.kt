@@ -7,9 +7,9 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import model.AppDatabase
-import model.Category
-import model.Recipe
+import com.example.recipeapp.model.AppDatabase
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Recipe
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,9 +37,24 @@ class RecipesRepository(context: Context) {
     private val db = Room.databaseBuilder(
         context,
         AppDatabase::class.java, "recipes-database"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     private val categoriesDao = db.categoriesDao()
+    private val recipesDao = db.recipesDao()
+
+    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipesByCategory(categoryId)
+        }
+    }
+
+    suspend fun saveRecipesToCache(recipes: List<Recipe>) {
+        return withContext(Dispatchers.IO) {
+            recipesDao.insertRecipes(recipes)
+        }
+    }
 
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(Dispatchers.IO) {

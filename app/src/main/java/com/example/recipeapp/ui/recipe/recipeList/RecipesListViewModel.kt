@@ -1,4 +1,4 @@
-package ui.recipe.recipeList
+package com.example.recipeapp.ui.recipe.recipeList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
 import kotlinx.coroutines.launch
-import model.Recipe
+import com.example.recipeapp.model.Recipe
 
 data class RecipesUiState(
     val recipes: List<Recipe> = emptyList()
@@ -23,8 +23,13 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
 
     fun loadRecipesByCategoryId(categoryId: Int) {
         viewModelScope.launch {
+            val cachedRecipes = repository.getRecipesFromCache(categoryId)
+            _recipesUiState.value = _recipesUiState.value?.copy(recipes = cachedRecipes)
+
             val recipes = repository.getRecipes(categoryId)
             _recipesUiState.value = _recipesUiState.value?.copy(recipes = recipes)
+
+            repository.saveRecipesToCache(recipes)
         }
     }
 }

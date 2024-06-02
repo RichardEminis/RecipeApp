@@ -1,4 +1,4 @@
-package ui.categories
+package com.example.recipeapp.ui.categories
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package ui.recipe.recipe
+package com.example.recipeapp.ui.recipe.recipe
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import ui.recipe.RecipeViewModel
+import com.example.recipeapp.ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {

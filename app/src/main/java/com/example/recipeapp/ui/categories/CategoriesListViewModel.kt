@@ -1,4 +1,4 @@
-package ui.categories
+package com.example.recipeapp.ui.categories
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
 import kotlinx.coroutines.launch
-import model.Category
+import com.example.recipeapp.model.Category
 
 data class CategoriesListState(
     val categories: List<Category> = emptyList()

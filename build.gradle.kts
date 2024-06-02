@@ -2,7 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
-    id("androidx.navigation.safeargs") version "2.7.7" apply false
-    kotlin("jvm") version "2.0.0-RC3"
-    kotlin("plugin.serialization") version "2.0.0-RC3"
+    alias(libs.plugins.androidxNavigationSafeArgs) apply false
+    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinSerialization)
 }

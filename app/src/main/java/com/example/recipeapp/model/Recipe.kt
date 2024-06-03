@@ -24,6 +24,7 @@ data class Recipe(
     val ingredients: List<Ingredient>,
     val method: List<String>,
     val imageUrl: String,
+    val isFavorite: Boolean,
     @ColumnInfo(name = "category_id")
     @Transient val categoryId: Int? = null
 ) : Parcelable
@@ -57,4 +58,7 @@ interface RecipesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipes(recipes: List<Recipe>)
+
+    @Query("SELECT * FROM recipe WHERE isFavorite = 1")
+    fun getFavoriteRecipes(): List<Recipe>
 }

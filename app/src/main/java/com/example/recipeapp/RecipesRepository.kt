@@ -68,6 +68,12 @@ class RecipesRepository(context: Context) {
         }
     }
 
+    suspend fun getFavoriteRecipes(): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getFavoriteRecipes()
+        }
+    }
+
     suspend fun getCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             val categoriesCall: Call<List<Category>> = service.getCategories()

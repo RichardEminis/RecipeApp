@@ -39,16 +39,12 @@ class RecipeFragment : Fragment() {
         val recipeId: Int = args.recipeId
 
         viewModel.loadRecipe(recipeId)
-
         initUI()
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initUI() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { state ->
             state?.let { item ->
-                Log.i("!!!", "Is favorite: ${item.isFavorite}")
-
                 if (item.isFavorite) {
                     binding.ibFavorite.setImageResource(R.drawable.ic_heart)
                 } else {
@@ -70,28 +66,23 @@ class RecipeFragment : Fragment() {
                 )
                 methodAdapter.methodUpdateDataSet(item.recipe?.method ?: emptyList())
 
-                val linearLayoutManagerIngredients = LinearLayoutManager(context)
-                binding.rvIngredients.layoutManager = linearLayoutManagerIngredients
+                binding.rvIngredients.layoutManager = LinearLayoutManager(context)
                 binding.rvIngredients.adapter = ingredientsAdapter
 
-                val linearLayoutManagerMethod = LinearLayoutManager(context)
-                binding.rvMethod.layoutManager = linearLayoutManagerMethod
+                binding.rvMethod.layoutManager = LinearLayoutManager(context)
                 binding.rvMethod.adapter = methodAdapter
 
-                val seekBarListener = PortionSeekBarListener { progress ->
+                binding.seekBar.setOnSeekBarChangeListener(PortionSeekBarListener { progress ->
                     binding.portionsValue.text = progress.toString()
                     viewModel.updatePortionsCount(progress)
                     ingredientsAdapter.ingredientsUpdateDataSet(
                         item.recipe?.ingredients ?: emptyList(), progress
                     )
-                }
-
-                binding.seekBar.setOnSeekBarChangeListener(seekBarListener)
+                })
             }
         }
-        val btnFavorite = binding.ibFavorite
 
-        btnFavorite.setOnClickListener {
+        binding.ibFavorite.setOnClickListener {
             viewModel.onFavoritesClicked()
         }
     }

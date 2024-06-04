@@ -74,6 +74,12 @@ class RecipesRepository(context: Context) {
         }
     }
 
+    suspend fun updateFavoriteStatus(recipeId: Int, isFavorite: Boolean) {
+        withContext(Dispatchers.IO) {
+            recipesDao.updateFavoriteStatus(recipeId, isFavorite)
+        }
+    }
+
     suspend fun getCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             val categoriesCall: Call<List<Category>> = service.getCategories()
@@ -95,14 +101,6 @@ class RecipesRepository(context: Context) {
             val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
             val recipeResponse: Response<Recipe> = recipeCall.execute()
             recipeResponse.body()
-        }
-    }
-
-    suspend fun getRecipes(ids: List<Int>): List<Recipe> {
-        return withContext(Dispatchers.IO) {
-            val recipesCall: Call<List<Recipe>> = service.getRecipes(ids.joinToString(","))
-            val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-            recipesResponse.body() ?: emptyList()
         }
     }
 }

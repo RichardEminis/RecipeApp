@@ -45,11 +45,9 @@ class RecipeFragment : Fragment() {
     private fun initUI() {
         viewModel.recipeUiState.observe(viewLifecycleOwner) { state ->
             state?.let { item ->
-                if (item.isFavorite) {
-                    binding.ibFavorite.setImageResource(R.drawable.ic_heart)
-                } else {
-                    binding.ibFavorite.setImageResource(R.drawable.ic_heart_empty)
-                }
+                binding.ibFavorite.setImageResource(
+                    if (item.isFavorite) R.drawable.ic_heart else R.drawable.ic_heart_empty
+                )
 
                 item.recipeImage?.let { imageUrl ->
                     Glide.with(this)

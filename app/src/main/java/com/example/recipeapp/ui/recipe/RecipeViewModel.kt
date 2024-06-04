@@ -49,7 +49,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
         viewModelScope.launch {
             repository.updateFavoriteStatus(recipe.id, isFavorite)
-            _recipeUiState.value = _recipeUiState.value?.copy(isFavorite = isFavorite)
+            _recipeUiState.value = _recipeUiState.value?.copy(
+                recipe = recipe.copy(isFavoriteRecipe = isFavorite),
+                isFavorite = isFavorite
+            )
         }
     }
 

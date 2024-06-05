@@ -18,7 +18,7 @@ data class RecipeUiState(
 )
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
-    private val _recipeUiState = MutableLiveData<RecipeUiState>()
+    private val _recipeUiState = MutableLiveData(RecipeUiState())
     val recipeUiState: LiveData<RecipeUiState>
         get() = _recipeUiState
 
@@ -29,17 +29,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             val recipe = repository.getRecipeById(recipeId)
             val imageUrl = IMAGE_URL + recipe?.imageUrl
 
-            val newState = recipeUiState.value?.copy(
-                recipe = recipe,
-                isFavorite = recipe?.isFavoriteRecipe ?: false,
-                recipeImage = imageUrl
-            ) ?: RecipeUiState(
+            _recipeUiState.value = recipeUiState.value?.copy(
                 recipe = recipe,
                 isFavorite = recipe?.isFavoriteRecipe ?: false,
                 recipeImage = imageUrl
             )
-
-            _recipeUiState.postValue(newState)
         }
     }
 
@@ -49,7 +43,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
         viewModelScope.launch {
             repository.updateFavoriteStatus(recipe.id, isFavorite)
-            _recipeUiState.value = _recipeUiState.value?.copy(
+            _recipeUiState.value = recipeUiState.value?.copy(
                 recipe = recipe.copy(isFavoriteRecipe = isFavorite),
                 isFavorite = isFavorite
             )

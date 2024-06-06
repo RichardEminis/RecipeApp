@@ -53,8 +53,8 @@ class Converters {
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipe WHERE category_Id = :categoryId")
-    fun getRecipesByCategory(categoryId: Int): List<Recipe>
+    @Query("SELECT * FROM recipe WHERE id = :recipeId")
+    fun getRecipeById(recipeId: Int): Recipe
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipes(recipes: List<Recipe>)

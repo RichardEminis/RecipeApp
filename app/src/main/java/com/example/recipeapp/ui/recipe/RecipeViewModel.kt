@@ -26,7 +26,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
-            val recipe = repository.getRecipeById(recipeId)
+            val recipe = repository.getRecipeByIdFromCache(recipeId)
             val imageUrl = IMAGE_URL + recipe?.imageUrl
 
             _recipeUiState.value = recipeUiState.value?.copy(

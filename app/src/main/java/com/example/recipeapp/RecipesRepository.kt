@@ -44,18 +44,6 @@ class RecipesRepository(context: Context) {
     private val categoriesDao = db.categoriesDao()
     private val recipesDao = db.recipesDao()
 
-    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
-        return withContext(Dispatchers.IO) {
-            recipesDao.getRecipesByCategory(categoryId)
-        }
-    }
-
-    suspend fun saveRecipesToCache(recipes: List<Recipe>) {
-        return withContext(Dispatchers.IO) {
-            recipesDao.insertRecipes(recipes)
-        }
-    }
-
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(Dispatchers.IO) {
             categoriesDao.getAllCategories()
@@ -80,27 +68,36 @@ class RecipesRepository(context: Context) {
         }
     }
 
+    suspend fun getRecipeByIdFromCache(recipeId: Int): Recipe? {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipeById(recipeId)
+        }
+    }
+
+    suspend fun getRecipesWithFavorites(categoryId: Int): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            val recipesCall: Call<List<Recipe>> = service.getRecipes(categoryId)
+            val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
+            val recipes = recipesResponse.body() ?: emptyList()
+
+            val favoriteRecipes = recipesDao.getFavoriteRecipes()
+            val favoriteIds = favoriteRecipes.map { it.id }.toSet()
+            val updatedRecipes = recipes.map { recipe ->
+                val isFavorite = favoriteIds.contains(recipe.id)
+                recipe.copy(isFavoriteRecipe = isFavorite)
+            }
+
+            recipesDao.insertRecipes(updatedRecipes)
+
+            updatedRecipes
+        }
+    }
+
     suspend fun getCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             val categoriesCall: Call<List<Category>> = service.getCategories()
             val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
             categoriesResponse.body() ?: emptyList()
-        }
-    }
-
-    suspend fun getRecipes(categoryId: Int): List<Recipe> {
-        return withContext(Dispatchers.IO) {
-            val recipesCall: Call<List<Recipe>> = service.getRecipes(categoryId)
-            val recipesResponse: Response<List<Recipe>> = recipesCall.execute()
-            recipesResponse.body() ?: emptyList()
-        }
-    }
-
-    suspend fun getRecipeById(recipeId: Int): Recipe? {
-        return withContext(Dispatchers.IO) {
-            val recipeCall: Call<Recipe> = service.getRecipeById(recipeId)
-            val recipeResponse: Response<Recipe> = recipeCall.execute()
-            recipeResponse.body()
         }
     }
 }

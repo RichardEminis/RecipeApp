@@ -25,19 +25,9 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     private val repository = RecipesRepository(application)
 
     fun loadFavorites() {
-        val favoritesSet = getFavorites() ?: emptySet()
-        val favoriteIds = favoritesSet.map { it.toInt() }
-
         viewModelScope.launch {
-            val recipes = repository.getRecipes(favoriteIds)
+            val recipes = repository.getFavoriteRecipes()
             _favoritesUiState.value = favoritesUiState.value?.copy(favoriteRecipes = recipes)
         }
-    }
-
-    private fun getFavorites(): Set<String>? {
-        val sharedPrefs = getApplication<Application>().getSharedPreferences(
-            FAVORITES_SHARED_PREFERENCES, Context.MODE_PRIVATE
-        )
-        return sharedPrefs.getStringSet(KEY_FAVORITES, emptySet())
     }
 }

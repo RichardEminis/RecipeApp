@@ -16,9 +16,9 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "category")
 data class Category(
     @PrimaryKey val id: Int,
-    @ColumnInfo(name = "1") val title: String,
-    @ColumnInfo(name = "2") val description: String,
-    @ColumnInfo(name = "3") val imageUrl: String,
+    val title: String,
+    val description: String,
+    val imageUrl: String,
 ): Parcelable
 
 @Dao

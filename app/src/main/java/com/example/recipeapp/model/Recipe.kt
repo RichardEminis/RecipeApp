@@ -24,6 +24,7 @@ data class Recipe(
     val ingredients: List<Ingredient>,
     val method: List<String>,
     val imageUrl: String,
+    val isFavoriteRecipe: Boolean = false,
     @ColumnInfo(name = "category_id")
     @Transient val categoryId: Int? = null
 ) : Parcelable
@@ -52,9 +53,15 @@ class Converters {
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipe WHERE category_Id = :categoryId")
-    fun getRecipesByCategory(categoryId: Int): List<Recipe>
+    @Query("SELECT * FROM recipe WHERE id = :recipeId")
+    fun getRecipeById(recipeId: Int): Recipe
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRecipes(recipes: List<Recipe>)
+
+    @Query("SELECT * FROM recipe WHERE isFavoriteRecipe = 1")
+    fun getFavoriteRecipes(): List<Recipe>
+
+    @Query("UPDATE recipe SET isFavoriteRecipe = :isFavorite WHERE id = :recipeId")
+    fun updateFavoriteStatus(recipeId: Int, isFavorite: Boolean)
 }

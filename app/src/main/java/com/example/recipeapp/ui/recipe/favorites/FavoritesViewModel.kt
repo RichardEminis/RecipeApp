@@ -1,32 +1,26 @@
 package com.example.recipeapp.ui.recipe.favorites
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.recipeapp.FAVORITES_SHARED_PREFERENCES
-import com.example.recipeapp.KEY_FAVORITES
 import com.example.recipeapp.RecipesRepository
-import kotlinx.coroutines.launch
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
     val favoriteRecipes: List<Recipe> = emptyList()
 )
 
-class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
+class FavoritesViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
 
     private val _favoritesUiState = MutableLiveData(FavoritesUiState())
     val favoritesUiState: LiveData<FavoritesUiState>
         get() = _favoritesUiState
 
-    private val repository = RecipesRepository(application)
-
     fun loadFavorites() {
         viewModelScope.launch {
-            val recipes = repository.getFavoriteRecipes()
+            val recipes = recipesRepository.getFavoriteRecipes()
             _favoritesUiState.value = favoritesUiState.value?.copy(favoriteRecipes = recipes)
         }
     }

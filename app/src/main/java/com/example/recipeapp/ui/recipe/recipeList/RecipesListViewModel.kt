@@ -1,8 +1,7 @@
 package com.example.recipeapp.ui.recipe.recipeList
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
 import com.example.recipeapp.model.Recipe
@@ -12,17 +11,15 @@ data class RecipesUiState(
     val recipes: List<Recipe> = emptyList()
 )
 
-class RecipesListViewModel(application: Application) : AndroidViewModel(application){
+class RecipesListViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
 
     private val _recipesUiState = MutableLiveData(RecipesUiState())
     val recipesUiState: MutableLiveData<RecipesUiState>
         get() = _recipesUiState
 
-    private val repository = RecipesRepository(application)
-
     fun loadRecipesByCategoryId(categoryId: Int) {
         viewModelScope.launch {
-            val recipes = repository.getRecipesWithFavorites(categoryId)
+            val recipes = recipesRepository.getRecipesWithFavorites(categoryId)
             _recipesUiState.value = recipesUiState.value?.copy(recipes = recipes)
         }
     }

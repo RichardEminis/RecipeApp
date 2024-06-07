@@ -1,34 +1,31 @@
 package com.example.recipeapp.ui.categories
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.RecipesRepository
-import kotlinx.coroutines.launch
 import com.example.recipeapp.model.Category
+import kotlinx.coroutines.launch
 
 data class CategoriesListState(
     val categories: List<Category> = emptyList()
 )
 
-class CategoriesListViewModel(application: Application) : AndroidViewModel(application) {
+class CategoriesListViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
     private val _categoriesList = MutableLiveData(CategoriesListState())
     val categoriesList: LiveData<CategoriesListState>
         get() = _categoriesList
 
-    private val repository = RecipesRepository(application)
-
     fun loadCategories() {
         viewModelScope.launch {
-            val cachedCategories = repository.getCategoriesFromCache()
+            val cachedCategories = recipesRepository.getCategoriesFromCache()
             _categoriesList.value = _categoriesList.value?.copy(categories = cachedCategories)
 
-            val categories = repository.getCategories()
+            val categories = recipesRepository.getCategories()
             _categoriesList.value = _categoriesList.value?.copy(categories = categories)
 
-            repository.saveCategoriesToCache(categories)
+            recipesRepository.saveCategoriesToCache(categories)
         }
     }
 

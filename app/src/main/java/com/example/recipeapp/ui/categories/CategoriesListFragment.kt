@@ -14,7 +14,9 @@ import com.example.recipeapp.BASE_URL
 import com.example.recipeapp.RecipeApiService
 import com.example.recipeapp.RecipesRepository
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
+import com.example.recipeapp.di.AppContainer
 import com.example.recipeapp.model.AppDatabase
+import com.example.recipeapp.ui.RecipeApplication
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -39,40 +41,8 @@ class CategoriesListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         val logInterceptor = HttpLoggingInterceptor { message ->
-            Log.d("OkHttp", message)
-        }.apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-        val client: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(logInterceptor)
-            .build()
-        val contentType = "application/json".toMediaType()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(Json.asConverterFactory(contentType))
-            .build()
-       val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
-
-        val db = Room.databaseBuilder(
-            requireContext(),
-            AppDatabase::class.java, "recipes-database"
-        )
-            .fallbackToDestructiveMigration()
-            .build()
-
-        val categoriesDao = db.categoriesDao()
-        val recipesDao = db.recipesDao()
-
-        val repository = RecipesRepository(
-            recipesDao = recipesDao,
-            categoriesDao = categoriesDao,
-            recipesApiService = service,
-            ioDispatcher = Dispatchers.IO
-        )
-
-        viewModel = CategoriesListViewModel(repository)
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        viewModel = CategoriesListViewModel(appContainer.repository)
     }
 
     override fun onCreateView(

@@ -1,14 +1,13 @@
 package com.example.recipeapp.ui.recipe
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.RecipesRepository
-import kotlinx.coroutines.launch
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 data class RecipeUiState(
     var recipe: Recipe? = null,
@@ -17,23 +16,23 @@ data class RecipeUiState(
     var recipeImage: String? = null,
 )
 
-class RecipeViewModel(application: Application) : AndroidViewModel(application) {
+class RecipeViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
     private val _recipeUiState = MutableLiveData(RecipeUiState())
     val recipeUiState: LiveData<RecipeUiState>
         get() = _recipeUiState
 
-    private val repository = RecipesRepository(application)
-
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
-            val recipe = repository.getRecipeByIdFromCache(recipeId)
-            val imageUrl = IMAGE_URL + recipe?.imageUrl
+            val recipe = recipesRepository.getRecipeByIdFromCache(recipeId)
+            val imageUrl = IMAGE_URL + recipe.imageUrl
 
-            _recipeUiState.value = recipeUiState.value?.copy(
-                recipe = recipe,
-                isFavorite = recipe?.isFavoriteRecipe ?: false,
-                recipeImage = imageUrl
-            )
+            _recipeUiState.value = recipe.isFavoriteRecipe.let {
+                recipeUiState.value?.copy(
+                    recipe = recipe,
+                    isFavorite = it,
+                    recipeImage = imageUrl
+                )
+            }
         }
     }
 
@@ -42,7 +41,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         val isFavorite = !recipe.isFavoriteRecipe
 
         viewModelScope.launch {
-            repository.updateFavoriteStatus(recipe.id, isFavorite)
+            recipesRepository.updateFavoriteStatus(recipe.id, isFavorite)
             _recipeUiState.value = recipeUiState.value?.copy(
                 recipe = recipe.copy(isFavoriteRecipe = isFavorite),
                 isFavorite = isFavorite

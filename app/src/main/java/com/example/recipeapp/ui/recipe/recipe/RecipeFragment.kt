@@ -1,19 +1,17 @@
 package com.example.recipeapp.ui.recipe.recipe
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
+import com.example.recipeapp.ui.RecipeApplication
 import com.example.recipeapp.ui.recipe.RecipeViewModel
 
 class RecipeFragment : Fragment() {
@@ -21,11 +19,18 @@ class RecipeFragment : Fragment() {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: RecipeViewModel by viewModels()
+    private lateinit var viewModel: RecipeViewModel
     private val args: RecipeFragmentArgs by navArgs()
 
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        viewModel = appContainer.recipesViewModelFactory.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

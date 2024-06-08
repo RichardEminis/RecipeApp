@@ -50,4 +50,7 @@ class AppContainer(context: Context) {
     )
 
     val categoriesListViewModelFactory = CategoriesListViewModelFactory(repository)
+    val recipesListViewModelFactory = RecipesListViewModelFactory(repository)
+    val favoritesViewModelFactory = FavoritesViewModelFactory(repository)
+    val recipesViewModelFactory = RecipeViewModelFactory(repository)
 }

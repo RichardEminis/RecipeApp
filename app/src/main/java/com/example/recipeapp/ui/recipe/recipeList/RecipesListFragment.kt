@@ -13,12 +13,13 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
+import com.example.recipeapp.ui.RecipeApplication
 
 class RecipesListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
     private val args: RecipesListFragmentArgs by navArgs()
-    private val viewModel: RecipesListViewModel by viewModels()
+    private lateinit var viewModel: RecipesListViewModel
     private var recipeListAdapter: RecipeListAdapter = RecipeListAdapter()
 
     private var _binding: FragmentRecipesListBinding? = null
@@ -30,6 +31,9 @@ class RecipesListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+
+        val appContainer = (requireActivity().application as RecipeApplication).appContainer
+        viewModel = appContainer.recipesListViewModelFactory.create()
     }
 
     override fun onCreateView(

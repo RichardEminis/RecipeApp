@@ -10,8 +10,11 @@ import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class RecipeListAdapter(
+@AndroidEntryPoint
+class RecipeListAdapter @Inject constructor(
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 

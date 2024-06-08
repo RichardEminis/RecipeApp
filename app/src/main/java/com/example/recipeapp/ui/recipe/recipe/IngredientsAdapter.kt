@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.databinding.ItemIngredientsBinding
 import com.example.recipeapp.model.Ingredient
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.math.RoundingMode
+import javax.inject.Inject
 
-class IngredientsAdapter(
+@AndroidEntryPoint
+class IngredientsAdapter @Inject constructor(
     private var dataSet: List<Ingredient> = emptyList()
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 

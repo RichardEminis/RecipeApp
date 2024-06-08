@@ -2,6 +2,7 @@ package com.example.recipeapp
 
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

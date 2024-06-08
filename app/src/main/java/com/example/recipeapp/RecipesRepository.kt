@@ -8,14 +8,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class RecipesRepository(
+class RecipesRepository @Inject constructor(
     private val recipesDao: RecipesDao,
     private val categoriesDao: CategoriesDao,
     private val recipesApiService: RecipeApiService,
-    private val ioDispatcher: CoroutineContext
 ) {
+
+    private val ioDispatcher: CoroutineContext = Dispatchers.IO
 
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(ioDispatcher) {

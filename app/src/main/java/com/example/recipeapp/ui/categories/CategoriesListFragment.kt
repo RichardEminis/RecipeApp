@@ -42,7 +42,7 @@ class CategoriesListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val appContainer = (requireActivity().application as RecipeApplication).appContainer
-        viewModel = CategoriesListViewModel(appContainer.repository)
+        viewModel = appContainer.categoriesListViewModelFactory.create()
     }
 
     override fun onCreateView(

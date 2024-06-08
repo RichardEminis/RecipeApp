@@ -16,36 +16,38 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 class AppContainer(context: Context) {
-    val logInterceptor = HttpLoggingInterceptor { message ->
+    private val logInterceptor = HttpLoggingInterceptor { message ->
         Log.d("OkHttp", message)
     }.apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
-    val client: OkHttpClient = OkHttpClient.Builder()
+    private val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(logInterceptor)
         .build()
-    val contentType = "application/json".toMediaType()
-    val retrofit = Retrofit.Builder()
+    private val contentType = "application/json".toMediaType()
+    private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
-    val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+    private val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
 
-    val db = Room.databaseBuilder(
+    private val db = Room.databaseBuilder(
         context,
         AppDatabase::class.java, "recipes-database"
     )
         .fallbackToDestructiveMigration()
         .build()
 
-    val categoriesDao = db.categoriesDao()
-    val recipesDao = db.recipesDao()
+    private val categoriesDao = db.categoriesDao()
+    private val recipesDao = db.recipesDao()
 
-    val repository = RecipesRepository(
+    private val repository = RecipesRepository(
         recipesDao = recipesDao,
         categoriesDao = categoriesDao,
         recipesApiService = service,
         ioDispatcher = Dispatchers.IO
     )
+
+    val categoriesListViewModelFactory = CategoriesListViewModelFactory(repository)
 }

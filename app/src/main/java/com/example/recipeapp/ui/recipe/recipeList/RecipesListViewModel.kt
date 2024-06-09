@@ -9,12 +9,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-data class RecipesUiState @Inject constructor(
+data class RecipesUiState(
     val recipes: List<Recipe> = emptyList()
 )
 
-class RecipesListViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
+@HiltViewModel
+class RecipesListViewModel @Inject constructor(private val recipesRepository: RecipesRepository) :
+    ViewModel() {
 
     private val _recipesUiState = MutableLiveData(RecipesUiState())
     val recipesUiState: MutableLiveData<RecipesUiState>

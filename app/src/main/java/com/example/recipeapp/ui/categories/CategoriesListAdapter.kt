@@ -14,9 +14,9 @@ import com.example.recipeapp.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
-class CategoriesListAdapter(
+class CategoriesListAdapter @Inject constructor(
     private var itemClickListener: OnItemClickListener? = null,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 

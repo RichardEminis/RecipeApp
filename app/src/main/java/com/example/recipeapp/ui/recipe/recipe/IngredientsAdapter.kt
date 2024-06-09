@@ -11,7 +11,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class IngredientsAdapter @Inject constructor(
     private var dataSet: List<Ingredient> = emptyList()
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {

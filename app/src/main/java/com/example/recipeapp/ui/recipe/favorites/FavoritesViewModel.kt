@@ -10,12 +10,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 data class FavoritesUiState @Inject constructor(
     val favoriteRecipes: List<Recipe> = emptyList()
 )
 
-class FavoritesViewModel(private val recipesRepository: RecipesRepository) : ViewModel() {
+@HiltViewModel
+class FavoritesViewModel @Inject constructor(private val recipesRepository: RecipesRepository) :
+    ViewModel() {
 
     private val _favoritesUiState = MutableLiveData(FavoritesUiState())
     val favoritesUiState: LiveData<FavoritesUiState>

@@ -13,7 +13,6 @@ import com.example.recipeapp.model.Recipe
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class RecipeListAdapter @Inject constructor(
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {

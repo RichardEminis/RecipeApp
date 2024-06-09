@@ -8,7 +8,6 @@ import com.example.recipeapp.databinding.ItemMethodBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class MethodAdapter @Inject constructor(
     private var dataSet: List<String> = emptyList()
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {

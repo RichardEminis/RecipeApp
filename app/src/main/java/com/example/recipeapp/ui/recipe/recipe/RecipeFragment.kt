@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -20,7 +21,7 @@ class RecipeFragment : Fragment() {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: RecipeViewModel
+    private val viewModel: RecipeViewModel by viewModels()
     private val args: RecipeFragmentArgs by navArgs()
 
     private val ingredientsAdapter = IngredientsAdapter()

@@ -10,10 +10,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.recipeapp.IMAGE_URL
+import com.example.recipeapp.utils.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 class CategoriesListAdapter @Inject constructor(

@@ -2,8 +2,8 @@ package com.example.recipeapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.recipeapp.BASE_URL
-import com.example.recipeapp.RecipeApiService
+import com.example.recipeapp.utils.BASE_URL
+import com.example.recipeapp.network.RecipeApiService
 import com.example.recipeapp.model.AppDatabase
 import com.example.recipeapp.model.CategoriesDao
 import com.example.recipeapp.model.RecipesDao

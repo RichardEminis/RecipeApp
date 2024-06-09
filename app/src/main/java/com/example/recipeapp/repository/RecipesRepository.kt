@@ -1,9 +1,10 @@
-package com.example.recipeapp
+package com.example.recipeapp.repository
 
 import com.example.recipeapp.model.CategoriesDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.model.RecipesDao
+import com.example.recipeapp.network.RecipeApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call

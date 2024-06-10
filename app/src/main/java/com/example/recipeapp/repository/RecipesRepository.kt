@@ -50,7 +50,13 @@ class RecipesRepository @Inject constructor(
         }
     }
 
-    suspend fun getRecipesWithFavorites(categoryId: Int): List<Recipe> {
+    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
+        return withContext(ioDispatcher) {
+            recipesDao.getRecipesByCategoryId(categoryId)
+        }
+    }
+
+    suspend fun getRecipes(categoryId: Int): List<Recipe> {
         return withContext(ioDispatcher) {
             val recipesCall: Call<List<Recipe>> = recipesApiService.getRecipes(categoryId)
             val recipesResponse: Response<List<Recipe>> = recipesCall.execute()

@@ -23,8 +23,11 @@ class RecipesListViewModel @Inject constructor(private val recipesRepository: Re
 
     fun loadRecipesByCategoryId(categoryId: Int) {
         viewModelScope.launch {
-            val recipes = recipesRepository.getRecipesWithFavorites(categoryId)
-            _recipesUiState.value = recipesUiState.value?.copy(recipes = recipes)
+            val cachedRecipes = recipesRepository.getRecipesFromCache(categoryId)
+            _recipesUiState.value = recipesUiState.value?.copy(recipes = cachedRecipes)
+
+            val networkRecipes = recipesRepository.getRecipes(categoryId)
+            _recipesUiState.value = recipesUiState.value?.copy(recipes = networkRecipes)
         }
     }
 }

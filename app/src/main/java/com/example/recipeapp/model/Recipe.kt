@@ -64,4 +64,7 @@ interface RecipesDao {
 
     @Query("UPDATE recipe SET isFavoriteRecipe = :isFavorite WHERE id = :recipeId")
     fun updateFavoriteStatus(recipeId: Int, isFavorite: Boolean)
+
+    @Query("SELECT * FROM recipe WHERE category_id = :categoryId")
+    fun getRecipesByCategoryId(categoryId: Int): List<Recipe>
 }

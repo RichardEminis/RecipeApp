@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.recipeapp.IMAGE_URL
+import com.example.recipeapp.utils.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemRecipeBinding
 import com.example.recipeapp.model.Recipe
+import javax.inject.Inject
 
-class RecipeListAdapter(
+class RecipeListAdapter @Inject constructor(
     private var itemClickListener: OnItemClickListener? = null
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 

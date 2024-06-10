@@ -1,21 +1,24 @@
-package com.example.recipeapp
+package com.example.recipeapp.repository
 
 import com.example.recipeapp.model.CategoriesDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.model.RecipesDao
+import com.example.recipeapp.network.RecipeApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class RecipesRepository(
+class RecipesRepository @Inject constructor(
     private val recipesDao: RecipesDao,
     private val categoriesDao: CategoriesDao,
     private val recipesApiService: RecipeApiService,
-    private val ioDispatcher: CoroutineContext
 ) {
+
+    private val ioDispatcher: CoroutineContext = Dispatchers.IO
 
     suspend fun getCategoriesFromCache(): List<Category> {
         return withContext(ioDispatcher) {
@@ -47,7 +50,13 @@ class RecipesRepository(
         }
     }
 
-    suspend fun getRecipesWithFavorites(categoryId: Int): List<Recipe> {
+    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
+        return withContext(ioDispatcher) {
+            recipesDao.getRecipesByCategoryId(categoryId)
+        }
+    }
+
+    suspend fun getRecipes(categoryId: Int): List<Recipe> {
         return withContext(ioDispatcher) {
             val recipesCall: Call<List<Recipe>> = recipesApiService.getRecipes(categoryId)
             val recipesResponse: Response<List<Recipe>> = recipesCall.execute()

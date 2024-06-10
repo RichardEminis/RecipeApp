@@ -1,6 +1,6 @@
 package com.example.recipeapp.di
 
-import com.example.recipeapp.RecipesRepository
+import com.example.recipeapp.repository.RecipesRepository
 import com.example.recipeapp.ui.recipe.RecipeViewModel
 
 class RecipeViewModelFactory(

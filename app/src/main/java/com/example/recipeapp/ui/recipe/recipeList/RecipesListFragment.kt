@@ -10,16 +10,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.recipeapp.IMAGE_URL
+import com.example.recipeapp.utils.IMAGE_URL
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipesListBinding
-import com.example.recipeapp.ui.RecipeApplication
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipesListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
     private val args: RecipesListFragmentArgs by navArgs()
-    private lateinit var viewModel: RecipesListViewModel
+    private val viewModel: RecipesListViewModel by viewModels()
     private var recipeListAdapter: RecipeListAdapter = RecipeListAdapter()
 
     private var _binding: FragmentRecipesListBinding? = null
@@ -31,9 +32,6 @@ class RecipesListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
-
-        val appContainer = (requireActivity().application as RecipeApplication).appContainer
-        viewModel = appContainer.recipesListViewModelFactory.create()
     }
 
     override fun onCreateView(

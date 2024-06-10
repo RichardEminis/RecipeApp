@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.androidxNavigationSafeArgs)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hiltAndroid)
     id("kotlin-parcelize")
-    id("androidx.navigation.safeargs.kotlin")
-    id("kotlinx-serialization")
-    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
 }
 
 android {
@@ -45,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
